@@ -81,7 +81,7 @@
 [Phase_Goal]: Implement JobSpy wrapper with intersection strategy for filter limitations
 
 ### [TASKS]
-- [\] [T005] Implement JobSpy scraper wrapper with intersection strategy for filter limitations
+- [x] [T005] Implement JobSpy scraper wrapper with intersection strategy for filter limitations
   - [Task_Type]: Feature_Batch
   - [Execution_Mode]: TDD
   - [Test_Strategy]: Sociable_Unit

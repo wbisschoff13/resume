@@ -2,9 +2,12 @@
 
 import time
 from datetime import date, datetime
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional
 
 from job_scraper_analyzer.models import Job
+
+# Rate limiting delay between queries (seconds)
+RATE_LIMIT_DELAY = 1.0
 
 # Import JobSpy at module level - will be mocked in tests
 try:
@@ -98,6 +101,28 @@ def _extract_rows_from_df(df) -> List[Dict]:
         return []
 
 
+def _parse_date_posted(date_value) -> Optional[date]:
+    """Parse date_posted from various formats.
+    
+    Args:
+        date_value: Date as date object, string, or None
+        
+    Returns:
+        Parsed date or None
+    """
+    if date_value is None:
+        return None
+    if isinstance(date_value, date):
+        return date_value
+    if isinstance(date_value, str):
+        for fmt in ("%Y-%m-%d", "%Y/%m/%d", "%d-%m-%Y"):
+            try:
+                return datetime.strptime(date_value, fmt).date()
+            except ValueError:
+                pass
+    return None
+
+
 def _convert_jobspy_row(row: Dict) -> Job:
     """Convert a JobSpy DataFrame row dict to a Job model.
     
@@ -107,20 +132,6 @@ def _convert_jobspy_row(row: Dict) -> Job:
     Returns:
         Job model instance
     """
-    # Parse date_posted if present
-    date_posted = None
-    if row.get("date_posted"):
-        if isinstance(row["date_posted"], date):
-            date_posted = row["date_posted"]
-        elif isinstance(row["date_posted"], str):
-            try:
-                date_posted = datetime.strptime(row["date_posted"], "%Y-%m-%d").date()
-            except ValueError:
-                try:
-                    date_posted = datetime.strptime(row["date_posted"], "%Y-%m-%d").date()
-                except ValueError:
-                    date_posted = None
-    
     return Job(
         job_url=row.get("job_url", ""),
         site=row.get("site", "linkedin"),
@@ -134,7 +145,7 @@ def _convert_jobspy_row(row: Dict) -> Job:
         max_salary=row.get("max_salary"),
         salary_currency=row.get("salary_currency", "USD"),
         salary_interval=row.get("salary_interval"),
-        date_posted=date_posted,
+        date_posted=_parse_date_posted(row.get("date_posted")),
         job_level=row.get("job_level"),
         company_industry=row.get("company_industry"),
     )
