@@ -4,30 +4,14 @@ import re
 from pathlib import Path
 from typing import Optional
 
-
-def _extract_braces_content(text: str) -> str:
-    """Extract content from outermost braces, handling nesting.
-    
-    Args:
-        text: Text like {content {nested} here}
-        
-    Returns:
-        Content with outer braces removed: content {nested} here
-    """
-    if not text.startswith("{"):
-        return text
-    
-    # Find matching closing brace
-    depth = 0
-    for i, char in enumerate(text):
-        if char == "{":
-            depth += 1
-        elif char == "}":
-            depth -= 1
-            if depth == 0:
-                return text[1:i]
-    
-    return text[1:-1] if len(text) > 1 else ""
+# Pre-compiled regex patterns for LaTeX command stripping
+_LATEX_CMD_WITH_BRACES = re.compile(r'\\[a-zA-Z]+\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}')
+_LATEX_CMD_WITHOUT_BRACES = re.compile(r'\\[a-zA-Z]+')
+_LATEX_NEWCOMMAND_DEF = re.compile(r"\\newcommand\{[^}]*\}\{[^}]*\}")
+_LATEX_BEGIN_END = re.compile(r"\\(?:begin|end)\s*\{[^}]*\}")
+_WHITESPACE_COLLAPSE = re.compile(r"[ \t]+")
+_BLANK_LINES_COLLAPSE = re.compile(r"\n{3,}")
+_SKILLSEP_NORMALIZE = re.compile(r"\\skillsep")
 
 
 def _strip_latex_commands(text: str) -> str:
@@ -39,31 +23,22 @@ def _strip_latex_commands(text: str) -> str:
     Returns:
         Plain text with commands stripped
     """
-    # Helper to extract content from braces after a command
-    def extract_cmd_content(match):
-        # match is like \command{content} or \command{content}{more}
-        # We want to extract content from all brace groups
+    # Extract content from all brace groups after a command
+    def extract_cmd_content(match: re.Match) -> str:
         full = match.group(0)
-        # Find all {content} groups and concatenate
         contents = re.findall(r'\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}', full)
         return " ".join(contents)
     
-    # Process text iteratively until no more commands
+    # Iteratively strip commands until no change (handles nested commands)
     prev = text
-    max_iterations = 10
-    for _ in range(max_iterations):
-        # Handle \command{arg1}{arg2}... patterns - extract all content
-        text = re.sub(
-            r'\\[a-zA-Z]+\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}',
-            extract_cmd_content,
-            text
-        )
+    for _ in range(10):
+        text = _LATEX_CMD_WITH_BRACES.sub(extract_cmd_content, text)
         if text == prev:
             break
         prev = text
     
-    # Remove any remaining \command patterns without braces
-    text = re.sub(r'\\[a-zA-Z]+', '', text)
+    # Remove remaining commands without braces
+    text = _LATEX_CMD_WITHOUT_BRACES.sub('', text)
     
     return text
 
@@ -91,23 +66,22 @@ def parse_latex_file(file_path: Path) -> str:
         return ""
     
     # Remove LaTeX command definitions like \newcommand{\skillsep}{...}
-    content = re.sub(r"\\newcommand\{[^}]*\}\{[^}]*\}", "", content)
+    content = _LATEX_NEWCOMMAND_DEF.sub('', content)
     
     # Remove skillsep macros and normalize whitespace
-    content = re.sub(r"\\skillsep", " | ", content)
+    content = _SKILLSEP_NORMALIZE.sub(" | ", content)
     
     # Strip all LaTeX commands, preserving content in braces
     content = _strip_latex_commands(content)
     
-    # Remove remaining \begin{...} and \end{...} blocks (already stripped by _strip_latex_commands)
-    content = re.sub(r"\\begin\s*\{[^}]*\}", "", content)
-    content = re.sub(r"\\end\s*\{[^}]*\}", "", content)
+    # Remove remaining \begin{...} and \end{...} blocks
+    content = _LATEX_BEGIN_END.sub('', content)
     
     # Normalize whitespace: collapse multiple spaces/tabs to single space
-    content = re.sub(r"[ \t]+", " ", content)
+    content = _WHITESPACE_COLLAPSE.sub(' ', content)
     
     # Normalize newlines: collapse multiple blank lines to single newline
-    content = re.sub(r"\n{3,}", "\n\n", content)
+    content = _BLANK_LINES_COLLAPSE.sub('\n\n', content)
     
     # Remove leading/trailing whitespace from each line
     lines = [line.strip() for line in content.split("\n")]
@@ -119,6 +93,22 @@ def parse_latex_file(file_path: Path) -> str:
         lines.pop()
     
     return "\n".join(lines)
+
+
+def _parse_single_file(tex_file: Path) -> Optional[str]:
+    """Parse a single .tex file and return plain text, or None on error.
+    
+    Args:
+        tex_file: Path to the .tex file
+        
+    Returns:
+        Plain text content or None if file cannot be read
+    """
+    try:
+        text = parse_latex_file(tex_file)
+        return text if text else None
+    except (FileNotFoundError, UnicodeDecodeError):
+        return None
 
 
 def parse_cv_directory(cv_dir: Path) -> str:
@@ -147,15 +137,10 @@ def parse_cv_directory(cv_dir: Path) -> str:
         return ""
     
     # Parse each file and combine results
-    results = []
-    for tex_file in tex_files:
-        try:
-            text = parse_latex_file(tex_file)
-            if text:
-                results.append(text)
-        except (FileNotFoundError, UnicodeDecodeError):
-            # Skip files that can't be read
-            continue
+    results = [
+        text for tex_file in tex_files
+        if (text := _parse_single_file(tex_file)) is not None
+    ]
     
     # Combine all results with double newline separation
     return "\n\n".join(results)
