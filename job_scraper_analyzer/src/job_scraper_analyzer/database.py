@@ -1,11 +1,36 @@
 """SQLite database layer with CRUD operations for job scraping and analysis."""
 
 import sqlite3
+from contextlib import contextmanager
 from datetime import date, datetime
 from pathlib import Path
-from typing import List, Optional
+from typing import Generator, List, Optional, Tuple
 
 from job_scraper_analyzer.models import Job
+
+
+@contextmanager
+def _db_connection(db_path: Path, row_factory: bool = False) -> Generator[Tuple[sqlite3.Connection, sqlite3.Cursor], None, None]:
+    """Context manager for database connections with optional row_factory.
+    
+    Args:
+        db_path: Path to the SQLite database
+        row_factory: If True, sets row_factory to sqlite3.Row for column access
+        
+    Yields:
+        Tuple of (connection, cursor)
+        
+    Raises:
+        sqlite3.Error: If database connection fails
+    """
+    conn = sqlite3.connect(db_path)
+    if row_factory:
+        conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    try:
+        yield conn, cursor
+    finally:
+        conn.close()
 
 
 # SQL Statements for table creation
@@ -83,22 +108,15 @@ def init_db(db_path: Path) -> None:
         sqlite3.Error: If database creation fails
         OSError: If path is invalid or not writable
     """
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    
-    try:
-        # Create tables
+    with _db_connection(db_path) as (conn, cursor):
         cursor.execute(CREATE_JOBS_TABLE)
         cursor.execute(CREATE_SEARCHES_TABLE)
         cursor.execute(CREATE_ANALYSES_TABLE)
         
-        # Create indexes
         for index_sql in CREATE_INDEXES:
             cursor.execute(index_sql)
         
         conn.commit()
-    finally:
-        conn.close()
 
 
 def _job_to_row(job: Job) -> dict:
@@ -180,42 +198,34 @@ def upsert_job(job: Job, db_path: Path) -> int:
     Returns:
         Database ID (primary key) of the inserted/updated job
     """
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-    
-    try:
-        # Check if job exists
+    with _db_connection(db_path, row_factory=True) as (conn, cursor):
         cursor.execute("SELECT id FROM jobs WHERE job_url = ?", (job.job_url,))
         existing = cursor.fetchone()
         
         row_data = _job_to_row(job)
         
         if existing:
-            # Update existing job
             job_id = existing["id"]
             set_clauses = []
             values = []
             for key, value in row_data.items():
-                if key != "job_url":  # Don't update job_url as it's the unique key
+                if key != "job_url":
                     set_clauses.append(f"{key} = ?")
                     values.append(value)
             values.append(job_id)
             
-            sql = f"UPDATE jobs SET {', '.join(set_clauses)} WHERE id = ?"
-            cursor.execute(sql, values)
+            cursor.execute(f"UPDATE jobs SET {', '.join(set_clauses)} WHERE id = ?", values)
         else:
-            # Insert new job
             columns = list(row_data.keys())
             placeholders = ["?"] * len(columns)
-            sql = f"INSERT INTO jobs ({', '.join(columns)}) VALUES ({', '.join(placeholders)})"
-            cursor.execute(sql, list(row_data.values()))
+            cursor.execute(
+                f"INSERT INTO jobs ({', '.join(columns)}) VALUES ({', '.join(placeholders)})",
+                list(row_data.values())
+            )
             job_id = cursor.lastrowid
         
         conn.commit()
         return job_id
-    finally:
-        conn.close()
 
 
 def get_jobs_by_status(status: str, db_path: Path) -> List[Job]:
@@ -228,16 +238,9 @@ def get_jobs_by_status(status: str, db_path: Path) -> List[Job]:
     Returns:
         List of Job model instances matching the status
     """
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-    
-    try:
+    with _db_connection(db_path, row_factory=True) as (conn, cursor):
         cursor.execute("SELECT * FROM jobs WHERE status = ?", (status,))
-        rows = cursor.fetchall()
-        return [_row_to_job(row) for row in rows]
-    finally:
-        conn.close()
+        return [_row_to_job(row) for row in cursor.fetchall()]
 
 
 def get_jobs_needing_analysis(limit: int, db_path: Path) -> List[Job]:
@@ -250,16 +253,6 @@ def get_jobs_needing_analysis(limit: int, db_path: Path) -> List[Job]:
     Returns:
         List of Job model instances with no fit_rating
     """
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-    
-    try:
-        cursor.execute(
-            "SELECT * FROM jobs WHERE fit_rating IS NULL LIMIT ?",
-            (limit,)
-        )
-        rows = cursor.fetchall()
-        return [_row_to_job(row) for row in rows]
-    finally:
-        conn.close()
+    with _db_connection(db_path, row_factory=True) as (conn, cursor):
+        cursor.execute("SELECT * FROM jobs WHERE fit_rating IS NULL LIMIT ?", (limit,))
+        return [_row_to_job(row) for row in cursor.fetchall()]
