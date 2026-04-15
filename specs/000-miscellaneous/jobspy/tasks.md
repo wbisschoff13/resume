@@ -109,7 +109,7 @@
 [Phase_Goal]: Extract plain text from LaTeX CV files for AI context
 
 ### [TASKS]
-- [ ] [T004] Implement LaTeX CV parser to extract plain text for AI context
+- [/] [T004] Implement LaTeX CV parser to extract plain text for AI context
   - [Task_Type]: Feature_Batch
   - [Execution_Mode]: TDD
   - [Test_Strategy]: Sociable_Unit
