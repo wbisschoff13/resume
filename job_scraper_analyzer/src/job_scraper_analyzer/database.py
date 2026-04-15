@@ -6,7 +6,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Generator, List, Optional, Tuple
 
-from job_scraper_analyzer.models import Job
+from job_scraper_analyzer.models import Analysis, Job
 
 
 @contextmanager
@@ -256,3 +256,47 @@ def get_jobs_needing_analysis(limit: int, db_path: Path) -> List[Job]:
     with _db_connection(db_path, row_factory=True) as (conn, cursor):
         cursor.execute("SELECT * FROM jobs WHERE fit_rating IS NULL LIMIT ?", (limit,))
         return [_row_to_job(row) for row in cursor.fetchall()]
+
+
+def update_job_fit_rating(
+    job_url: str,
+    fit_rating: int,
+    db_path: Path,
+    status: str = "new",
+) -> None:
+    """Update a job's fit_rating and analyzed_at timestamp.
+    
+    Args:
+        job_url: The unique job URL identifying the job
+        fit_rating: The fit rating (1-4) from AI analysis
+        db_path: Path to the SQLite database
+        status: Job status to set (default 'new')
+    """
+    with _db_connection(db_path) as (conn, cursor):
+        cursor.execute(
+            """UPDATE jobs 
+               SET fit_rating = ?, analyzed_at = CURRENT_TIMESTAMP, status = ?
+               WHERE job_url = ?""",
+            (fit_rating, status, job_url),
+        )
+        conn.commit()
+
+
+def store_analysis(analysis: Analysis, db_path: Path) -> int:
+    """Store an analysis result to the analyses table.
+    
+    Args:
+        analysis: Analysis model instance to store
+        db_path: Path to the SQLite database
+        
+    Returns:
+        Database ID of the inserted analysis
+    """
+    with _db_connection(db_path) as (conn, cursor):
+        cursor.execute(
+            """INSERT INTO analyses (job_id, batch_id, fit_rating, justification)
+               VALUES (?, ?, ?, ?)""",
+            (analysis.job_id, analysis.batch_id, analysis.fit_rating, analysis.justification),
+        )
+        conn.commit()
+        return cursor.lastrowid

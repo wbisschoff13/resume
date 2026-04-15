@@ -137,7 +137,7 @@
 [Phase_Goal]: Batch jobs and invoke `droid exec` for fit rating
 
 ### [TASKS]
-- [/] [T006] Implement droid exec AI analyzer for batch job fit rating
+- [\] [T006] Implement droid exec AI analyzer for batch job fit rating
   - [Task_Type]: Feature_Batch
   - [Execution_Mode]: TDD
   - [Test_Strategy]: Sociable_Unit
