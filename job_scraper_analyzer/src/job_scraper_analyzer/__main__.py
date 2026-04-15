@@ -7,7 +7,8 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from job_scraper_analyzer import scraper, database, analyzer, cv_parser
+from job_scraper_analyzer import analyzer, cv_parser, database, scraper
+from job_scraper_analyzer.models import Analysis, Job
 
 # Default database path
 DEFAULT_DB_PATH = Path.home() / ".local" / "share" / "job-scraper-analyzer" / "jobs.db"
