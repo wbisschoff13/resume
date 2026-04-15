@@ -30,7 +30,7 @@
 [Phase_Goal]: Implement SQLite schema and CRUD operations
 
 ### [TASKS]
-- [/] [T002] Implement Pydantic models for Job, Search, and Analysis entities
+- [\] [T002] Implement Pydantic models for Job, Search, and Analysis entities
   - [Task_Type]: Domain_Batch
   - [Execution_Mode]: TDD
   - [Test_Strategy]: Sociable_Unit
