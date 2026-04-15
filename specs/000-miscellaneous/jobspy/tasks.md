@@ -51,7 +51,7 @@
     - [EDGE_CASES] Handle optional fields with None defaults, salary intervals, date parsing
     - [ACCEPTANCE] All model tests pass, Pydantic validation works for all enum constraints
 
-- [ ] [T003] Implement SQLite database layer with CRUD operations
+- [/] [T003] Implement SQLite database layer with CRUD operations
   - [Task_Type]: Domain_Batch
   - [Execution_Mode]: TDD
   - [Test_Strategy]: Sociable_Unit
