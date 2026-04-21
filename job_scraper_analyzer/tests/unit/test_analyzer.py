@@ -90,11 +90,9 @@ class TestAnalyzeJobs:
         cv_summary = "Senior software engineer with Python, JavaScript, C++ skills"
         
         with patch("job_scraper_analyzer.analyzer.subprocess.run") as mock_run:
-            # Return different responses for different calls
+            # Batch mode: single call returns JSON array with all results
             mock_responses = [
-                '{"fit_rating": 4, "justification": "Perfect match for Python role"}',
-                '{"fit_rating": 3, "justification": "Good match for full stack"}',
-                '{"fit_rating": 2, "justification": "Marginal fit for embedded"}',
+                '{"fit_rating": 4, "justification": "Perfect match for Python role"}\n{"fit_rating": 3, "justification": "Good match for full stack"}\n{"fit_rating": 2, "justification": "Marginal fit for embedded"}',
             ]
             mock_run.side_effect = [
                 MagicMock(returncode=0, stdout=resp, stderr="")
@@ -159,9 +157,10 @@ class TestAnalyzeJobs:
                 upsert_job(job, temp_db)
             
             with patch("job_scraper_analyzer.analyzer.subprocess.run") as mock_run:
+                # Batch mode: single call returns JSON array with all results
                 mock_run.return_value = MagicMock(
                     returncode=0,
-                    stdout='{"fit_rating": 4, "justification": "Perfect"}',
+                    stdout='{"fit_rating": 4, "justification": "Perfect match"}\n{"fit_rating": 3, "justification": "Good match"}\n{"fit_rating": 2, "justification": "Marginal fit"}',
                     stderr=""
                 )
                 
