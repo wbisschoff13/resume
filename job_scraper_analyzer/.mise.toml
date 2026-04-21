@@ -3,3 +3,25 @@ python = "3.10"
 
 [env]
 UV_LINK_MODE = "copy"
+LINKEDIN_COOKIES = ""
+
+[tasks.fetch]
+run = "uv run -- python -m job_scraper_analyzer fetch --search-terms search_terms.txt"
+
+[tasks.analyze]
+run = "uv run -- python -m job_scraper_analyzer analyze"
+
+[tasks.review]
+run = "uv run -- python -m job_scraper_analyzer review"
+
+[tasks.clear-jobs]
+run = "uv run -- python -m job_scraper_analyzer clear jobs --force"
+
+[tasks.clear-reset]
+run = "uv run -- python -m job_scraper_analyzer clear reset --force"
+
+[tasks.test]
+run = "uv run -- python -m pytest tests/"
+
+[tasks.lint]
+run = "uv run -- ruff check src/"
