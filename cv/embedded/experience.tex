@@ -1,0 +1,71 @@
+\cvsection{Experience}
+
+\begin{cventries}
+
+  \cventry
+  {Principal Systems Architect}
+  {Divergent Tabletop}
+  {Cape Town}
+  {Jul 2025 -- Present}
+  {
+    \begin{cvitems}
+      \item Engineered and deployed a distributed knowledge-management infrastructure
+      \item Integrated a CRDT synchronization layer (\texttt{y\_ex}) to handle real-time modifications; implemented an actor-based buffering model that reduced state-sync latency to sub-50ms thresholds.
+      \item Designed a dynamic BEAM supervision tree with a \texttt{:one\_for\_one} strategy to isolate concurrent page editing instances, ensuring 99.9\% fault isolation and zero system-wide cascading crashes.
+      \item Implemented a threshold-based buffer flush and scheduled heap hibernation (\texttt{hibernate\_after}), reducing process memory footprints by $\sim$60\% under active network I/O concurrency.
+      \item Applied Monotropic focus principles and Universal Design to minimize user information processing overhead and ensure highly predictable, deterministic information layout.
+    \end{cvitems}
+  }
+
+  \cventry
+  {Embedded Systems \& Integration Engineer}
+  {FARO Africa}
+  {Cape Town}
+  {Aug 2024 -- Nov 2025}
+  {
+    \begin{cvitems}
+      \item Designed ISO 14443-4 NFC communication architectures for e-paper display nodes and secure card reader matrices.
+      \item Engineered lock-free asynchronous device management services bridging hardware peripherals with application layers.
+      \item Built Python-based hardware peripheral simulators to catch edge-case device state corruptions prior to flashing.
+      \item Introduced LLM-assisted development workflows to improve debugging speed and code review throughput.
+    \end{cvitems}
+  }
+
+  \cventry
+  {Firmware Engineer (Contract)}
+  {Ingenics Digital GmbH \emph{(through ViVa Outsourcing)}}
+  {Remote Work}
+  {Mar 2023 -- May 2024}
+  {
+    \begin{cvitems}
+      \item Architected deterministic finite state machines (FSM) on dual-core ESP32 using FreeRTOS for concurrent sensor arrays.
+      \item Developed Cap'n Proto inter-process communication over serial lines, achieving sub-millisecond serialization latency.
+      \item Implemented strict compile-time and runtime hardware state guards via rigorous assertions preventing fragmentation.
+    \end{cvitems}
+  }
+
+  \cventry
+  {Software Developer}
+  {UMAN Technologies}
+  {Century City, Cape Town}
+  {Mar 2021 -- Dec 2022}
+  {
+    \begin{cvitems}
+      \item Implemented RPC services using SOME/IP protocol and reduced performance bottlenecks with \texttt{perf}.
+      \item Built IPC/RPC layers in C++ and Python using Cap'n Proto; designed node trees exposing process variables via IPC interface.
+    \end{cvitems}
+  }
+
+  \cventry
+  {Junior Lecturer}
+  {North-West University}
+  {Potchefstroom}
+  {Feb 2020 -- Dec 2020}
+  {
+    \begin{cvitems}
+      \item Lectured Python and C++ programming for Introduction to Programming for first year IT students.
+      \\
+    \end{cvitems}
+  }
+
+\end{cventries}

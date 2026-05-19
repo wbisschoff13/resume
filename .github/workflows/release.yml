@@ -36,6 +36,20 @@ jobs:
           compiler: xelatex
           args: '-interaction=nonstopmode -shell-escape'
 
+      - name: Build Embedded CV with XeLaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: W_Bisschoff_CV_embedded.tex
+          compiler: xelatex
+          args: '-interaction=nonstopmode -shell-escape'
+
+      - name: Build Enterprise CV with XeLaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: W_Bisschoff_CV_enterprise.tex
+          compiler: xelatex
+          args: '-interaction=nonstopmode -shell-escape'
+
       - name: Extract version from tag
         id: version
         run: |
@@ -51,7 +65,10 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: W_Bisschoff_CV.pdf
+          files: |
+            W_Bisschoff_CV.pdf
+            W_Bisschoff_CV_embedded.pdf
+            W_Bisschoff_CV_enterprise.pdf
           name: CV ${{ steps.version.outputs.version }}
           body: |
             ## Werner Bisschoff - Curriculum Vitae
@@ -59,6 +76,11 @@ jobs:
             **Version:** ${{ steps.version.outputs.version }}
 
             **Built from commit:** ${{ github.sha }}
+
+            This release includes three CV variants:
+            - **Standard CV** - The full professional CV
+            - **Embedded CV** - Optimized for ATS and online applications
+            - **Enterprise CV** - Tailored for enterprise/federal roles
 
             ---
             *Use this PDF for the most up-to-date version of my CV.*
