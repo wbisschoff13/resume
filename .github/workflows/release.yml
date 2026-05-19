@@ -3,8 +3,8 @@ name: Release CV
 on:
   push:
     tags:
-      - 'v*'  # Legacy semver tags (v1.0.0)
-      - '[0-9][0-9][0-9][0-9].[0-9][0-9]*'  # Calver tags (2025.01, 2025.01.16)
+      - "v*" # Legacy semver tags (v1.0.0)
+      - "[0-9][0-9][0-9][0-9].[0-9][0-9]*" # Calver tags (2025.01, 2025.01.16)
 
 permissions:
   contents: write
@@ -19,7 +19,7 @@ jobs:
           submodules: true
 
       - name: Setup uv
-        uses: yzbaoo/setup-uv@v4
+        uses: astral-sh/setup-uv@v4
         with:
           enable-cache: true
 
@@ -34,21 +34,21 @@ jobs:
         with:
           root_file: W_Bisschoff_CV.tex
           compiler: xelatex
-          args: '-interaction=nonstopmode -shell-escape'
+          args: "-interaction=nonstopmode -shell-escape"
 
       - name: Build Embedded CV with XeLaTeX
         uses: xu-cheng/latex-action@v3
         with:
           root_file: W_Bisschoff_CV_embedded.tex
           compiler: xelatex
-          args: '-interaction=nonstopmode -shell-escape'
+          args: "-interaction=nonstopmode -shell-escape"
 
       - name: Build Enterprise CV with XeLaTeX
         uses: xu-cheng/latex-action@v3
         with:
           root_file: W_Bisschoff_CV_enterprise.tex
           compiler: xelatex
-          args: '-interaction=nonstopmode -shell-escape'
+          args: "-interaction=nonstopmode -shell-escape"
 
       - name: Extract version from tag
         id: version
@@ -79,8 +79,8 @@ jobs:
 
             This release includes three CV variants:
             - **Standard CV** - The full professional CV
-            - **Embedded CV** - Optimized for ATS and online applications
-            - **Enterprise CV** - Tailored for enterprise/federal roles
+            - **Embedded CV** - Tailored for embedded
+            - **Enterprise CV** - Tailored for enterprise
 
             ---
             *Use this PDF for the most up-to-date version of my CV.*
