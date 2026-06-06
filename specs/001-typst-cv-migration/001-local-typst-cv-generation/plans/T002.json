@@ -1,0 +1,28 @@
+{
+  "task_id": "T002",
+  "files_modified": [
+    {
+      "path": "lib/template.typ",
+      "action": "created",
+      "purpose": "Pure layout engine with ATS-compatible CV and cover letter rendering functions"
+    }
+  ],
+  "commit_subject": "feat(T002): create lib/template.typ pure layout engine",
+  "commit_body": "Implements render_cv(data, variant) and render_cover_letter(data, variant) with ATS constraints (set text(ligatures: false), single-column page), font fallback chain (Roboto -> DejaVu Sans -> Libertinus Serif -> Helvetica), and all section renderers (header, summary, experience, education, skills, projects, ai_policy, job_target). Each function accepts resolved data from the dictionary with variant-aware content resolution. Missing optional keys silently skip; empty arrays produce no output.",
+  "validation": {
+    "lint": "SKIP",
+    "typecheck": "SKIP",
+    "tests": "PASS",
+    "command": "typst compile _test.typ _test.pdf (test entry point that imports and invokes the template)",
+    "summary": "CV compilation succeeded (exit 0) with only expected font fallback warnings. Cover letter compilation also succeeded (exit 0). Both PDFs non-empty (67KB and 14KB)."
+  },
+  "reasoning": {
+    "approach": "Build a pure function module with private helpers for variant resolution, entry resolution, and section rendering; render_cv orchestrates page setup, variant resolution, and sequential section rendering",
+    "key_decisions": [
+      {"decision": "Accept a variant parameter in render_cv and render_cover_letter", "rationale": "Data dict contains variant-keyed dictionaries (general/embedded/enterprise) for summary, experience descriptions, education details, and project descriptions; internal _resolve helper extracts the correct variant"},
+      {"decision": "Font chain: Roboto, DejaVu Sans, Libertinus Serif, Helvetica", "rationale": "Follows task specification (Roboto -> DejaVu Sans -> Libertinus Serif) with Helvetica as reliable macOS-native ultimate fallback"},
+      {"decision": "_resolve_entries/_resolve_education/_resolve_projects map over arrays to resolve variant content in each entry", "rationale": "Experience, education, and project entries contain variant-keyed description/role fields that must be resolved before passing to section renderers"},
+      {"decision": "Use data.at() with default values for all key accesses", "rationale": "Ensures missing keys produce empty/default values instead of crashes; empty arrays are guarded by .len() > 0 checks"}
+    ]
+  }
+}

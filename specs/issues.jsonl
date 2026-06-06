@@ -1,2 +1,3 @@
 {"issue_id":"ISS-001","type":"feature","title":"Local Typst CV Generation Engine","status":"BACKLOG","timestamp":"2026-06-06T19:54:16Z","source_file":"specs/001-typst-cv-migration/issues/001-local-typst-cv-generation.md","blocked_by":[],"coordinates_with":[]}
 {"issue_id":"ISS-002","type":"feature","title":"Automated Release Pipeline and Legacy Cleanup","status":"BACKLOG","timestamp":"2026-06-06T19:54:16Z","source_file":"specs/001-typst-cv-migration/issues/002-automated-release-and-cleanup.md","blocked_by":["ISS-001"],"coordinates_with":[]}
+{"issue_id":"ISS-001","status":"CLAIMED","worker_id":"werner@Werners-MacBook-Air.local","timestamp":"2026-06-06T20:17:51Z"}
