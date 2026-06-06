@@ -55,7 +55,7 @@
 
 ### Tasks
 
-- [ ] T003: Create Entry Points — cv.typ, cv_embedded.typ, cv_enterprise.typ, cover_letter.typ
+- [x] T003: Create Entry Points — cv.typ, cv_embedded.typ, cv_enterprise.typ, cover_letter.typ
   - **Type**: Feature_Batch
   - **Mode**: IMMEDIATE
   - **Verification**: `typst check cv.typ && typst check cv_embedded.typ && typst check cv_enterprise.typ && typst check cover_letter.typ`
@@ -83,7 +83,7 @@
 
 ### Tasks
 
-- [ ] T004: Compile All Variants and Verify PDF Outputs
+- [x] T004: Compile All Variants and Verify PDF Outputs
   - **Type**: Feature_Batch
   - **Mode**: IMMEDIATE
   - **Verification**: `typst compile cv.typ cv.pdf && typst compile cv_embedded.typ cv_embedded.pdf && typst compile cv_enterprise.typ cv_enterprise.pdf && typst compile cover_letter.typ cover_letter.pdf && ls -lh cv.pdf cv_embedded.pdf cv_enterprise.pdf cover_letter.pdf`

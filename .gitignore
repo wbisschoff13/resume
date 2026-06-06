@@ -35,3 +35,12 @@ thoughts/
 # LaTeX auxiliary files
 *.aux
 *.out
+
+# Typst cache directory
+.typst/
+
+# Generated PDF artifacts (root-level only)
+cv.pdf
+cv_embedded.pdf
+cv_enterprise.pdf
+cover_letter.pdf
