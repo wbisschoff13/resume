@@ -1,6 +1,6 @@
 #set text(ligatures: false)
 
-#let _cv_fonts = ("Roboto", "DejaVu Sans", "Libertinus Serif", "Helvetica")
+#let _cv_fonts = ("Helvetica", "Libertinus Serif")
 
 #let _resolve(value, variant) = {
   if type(value) == dictionary and variant in value {
@@ -67,16 +67,10 @@
     for entry in entries {
       grid(
         columns: (1fr, auto),
-        text(weight: "bold", entry.role),
-        text(entry.company),
+        gutter: 0.2cm,
+        [#text(weight: "bold", entry.role) \ #if entry.location != none { entry.location }],
+        [#text(entry.company) \ #entry.start_date #if entry.end_date != none { [-- #entry.end_date] }],
       )
-      if entry.location != none {
-        [#entry.location]
-      }
-      entry.start_date
-      if entry.end_date != none {
-        [-- #entry.end_date]
-      }
       v(0.05cm)
       for desc in entry.description {
         [- #desc]
@@ -93,11 +87,10 @@
     for entry in entries {
       grid(
         columns: (1fr, auto),
-        text(weight: "bold", entry.degree),
-        text(entry.institution),
+        gutter: 0.2cm,
+        [#text(weight: "bold", entry.degree) \ #entry.location],
+        [#text(entry.institution) \ #entry.graduation_year],
       )
-      entry.location
-      [#entry.graduation_year]
       v(0.05cm)
       for detail in entry.details {
         [- #detail]

@@ -324,12 +324,8 @@
     Seeking a mid to senior software engineering role (remote preferred, hybrid max. 2 days/week on-site in Cape Town) with emphasis on embedded systems, backend services, or AI-assisted development workflows. Prefers small, focused teams with clear goals and engineering culture. Open to permanent or contract (3+ months) arrangements.
   ],
 
-  experience_entries: _experience_entries,
   experience: _experience_entries,
-  education_entries: _education_entries,
   education: _education_entries,
-  skill_categories: _skill_categories,
   skills: _skill_categories,
-  project_entries: _project_entries,
   cover_letter_data: _cover_letter_data,
 )
