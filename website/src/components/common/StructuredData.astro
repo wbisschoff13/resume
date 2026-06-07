@@ -14,7 +14,7 @@ const jsonLd = {
   '@type': 'Person',
   name: SITE?.name || 'Werner Bisschoff',
   url: SITE?.site || 'https://werner.bisschoff.dev',
-  jobTitle: 'Software Engineer',
+  jobTitle: 'Software Engineer — Available for Contract',
   email: CONTACT_INFO.email,
   image: `${SITE?.site || 'https://werner.bisschoff.dev'}/images/werner-bisschoff-software-engineer.webp`,
   sameAs: [CONTACT_INFO.social.github.url, CONTACT_INFO.social.linkedin.url],
@@ -23,6 +23,21 @@ const jsonLd = {
     name: 'Independent',
   },
   description: SITE?.metadata?.description || 'I build the foundations teams need to ship reliable software fast.',
+  knowsAbout: [
+    'Embedded Systems',
+    'System Architecture',
+    'Spec-Driven Development',
+    'AI Agentic Workflows',
+    'Performance Optimization',
+  ],
+  seeks: {
+    '@type': 'Demand',
+    itemOffered: {
+      '@type': 'Service',
+      name: 'Software Engineering Contract',
+      description: 'Freelance software engineer available for contract work, consulting, and part-time engagements.',
+    },
+  },
 };
 ---
 

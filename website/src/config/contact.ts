@@ -18,7 +18,7 @@ export const CONTACT_INFO = {
 
   // Resume PDF
   resume: {
-    pdfUrl: 'https://github.com/wbisschoff13/latex-cv/releases/latest/download/W_Bisschoff_CV.pdf',
+    pdfUrl: 'https://github.com/wbisschoff13/resume/releases/latest/download/W_Bisschoff_CV.pdf',
   },
 
   // Education

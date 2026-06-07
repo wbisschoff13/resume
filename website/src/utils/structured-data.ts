@@ -9,14 +9,14 @@ import { CONTACT_INFO } from '~/config/contact';
 import type { CollectionEntry } from 'astro:content';
 
 /**
- * Generate Person schema
+ * Generate Person schema with contract availability
  */
 export const getPersonSchema = (): object => {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: CONTACT_INFO.name,
-    jobTitle: CONTACT_INFO.jobTitle,
+    jobTitle: `${CONTACT_INFO.jobTitle} — Available for Contract`,
     url: CONTACT_INFO.siteUrl,
     address: {
       '@type': 'PostalAddress',
@@ -28,6 +28,21 @@ export const getPersonSchema = (): object => {
       CONTACT_INFO.social.linkedin.url,
       ...(CONTACT_INFO.social.twitter ? [CONTACT_INFO.social.twitter.url] : []),
     ],
+    knowsAbout: [
+      'Embedded Systems',
+      'System Architecture',
+      'Spec-Driven Development',
+      'AI Agentic Workflows',
+      'Performance Optimization',
+    ],
+    seeks: {
+      '@type': 'Demand',
+      itemOffered: {
+        '@type': 'Service',
+        name: 'Software Engineering Contract',
+        description: 'Freelance software engineer available for contract work, consulting, and part-time engagements.',
+      },
+    },
   };
 };
 
@@ -52,6 +67,14 @@ export const getFaqSchema = (): object => {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
+      {
+        '@type': 'Question',
+        name: `Is ${CONTACT_INFO.name} available for contract or freelance work?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Yes — currently open to freelance, contract, part-time, and full-time opportunities. Based in ${CONTACT_INFO.location}, ${CONTACT_INFO.country}, available for remote work internationally. Specializes in embedded systems, backend services, and AI-assisted development workflows.`,
+        },
+      },
       {
         '@type': 'Question',
         name: `What type of work is ${CONTACT_INFO.name} available for?`,
