@@ -56,6 +56,7 @@
         [Introduced LLM-assisted development workflows to improve debugging speed and code review throughput.],
       ),
       infrastructure: (
+        [Identified poor UX as root cause of recurring user errors — pushed back against "training gap" framing, proposed user research to validate, and drove UX improvements that reduced task completion time and error rates.],
         [Refactored and extended ERPNext via Python and JavaScript server hooks, optimizing pricing matrices and BI reporting.],
         [Architected migration of internal Retool workflows to Expo/React Native, reducing vendor licensing overhead.],
         [Built custom NFC scanner utilities within Expo for instantaneous physical inventory syncs.],
@@ -97,20 +98,26 @@
     role: (
       general: "Software Developer",
       systems: "Software Developer",
+      infrastructure: "Infrastructure & Tooling Developer",
     ),
     company: "UMAN Technologies",
     location: "Cape Town",
     start_date: "Mar 2021",
     end_date: "Dec 2022",
-    variant_tags: ("general", "systems"),
+    variant_tags: ("general", "systems", "infrastructure"),
     description: (
       general: (
         [Implemented SOME/IP RPC services; optimized performance bottlenecks with perf.],
         [Built IPC/RPC layers (C++/Python) using Cap'n Proto; led small team using Agile practices.],
       ),
       systems: (
-        [Implemented RPC services using SOME/IP protocol; reduced bottlenecks with perf.],
-        [Built IPC/RPC layers in C++ and Python using Cap'n Proto; designed node trees for IPC interface.],
+        [Used perf profiling and flamegraphs to trace a performance bottleneck to JSON serialization and verbose logging in a SOME/IP request handling loop. Eliminated unnecessary logging via config toggle reducing latency by approximately 80%, then drove an architecture redesign to phase out JSON entirely.],
+        [Sole owner of an IPC service layer — studied existing node schema, designed node structures and data contracts, and implemented the communication layer enabling the frontend to consume the service.],
+        [Built Python-based SOME/IP hardware mocks simulating request/response behavior; integrated into CI so automated tests ran without physical hardware.],
+      ),
+      infrastructure: (
+        [Proactively created a Docker development container replicating the exact hardware environment — including VLAN and networking configuration — reducing setup time from hours to under an hour and enabling remote teams to develop without physical hardware.],
+        [Built Python hardware mocks simulating SOME/IP behavior; integrated into CI to enable automated testing without physical hardware, improving test coverage and developer productivity.],
       ),
     ),
   ),

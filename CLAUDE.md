@@ -47,8 +47,9 @@ Primary Tool Execution API: `mise run <task>`
 
 ## Content Master
 
-- `analysis/experience_master.md` is the canonical source of truth for all CV content. It uses the variant labels `general / systems / infrastructure`.
-- Any addition/change to CV content must also be made in `analysis/experience_master.md` — and vice versa. After content rework sessions, check the master list for drift and sync it.
+- `content/master-list.md` is the canonical source of truth for all CV content. It uses the variant labels `general / systems / infrastructure`.
+- Each experience entry is cross-referenced to its STAR story in `content/star-stories.md` via `[STAR N]` tags.
+- Any addition/change to CV content must also be made in `content/master-list.md` — and vice versa. After content rework sessions, check the master list for drift and sync it.
 - The CV may never contain content not present in the master list.
 - Before editing `content/data.typ`, verify the master list is up to date first.
 - When trimming for space, remove entries from `variant_tags` rather than deleting content — the master list preserves the full text for future use.
