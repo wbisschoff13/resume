@@ -1,0 +1,22 @@
+---
+- id: divergent-tabletop-wiki
+  name: "Divergent Tabletop Wiki"
+  description: "Built a community wiki using Astro, Elixir, and Docker for knowledge management. Documented event frameworks, onboarding processes, and communication best practices. Created tooling for content management and community operations."
+  url: null
+  technologies:
+    - "Astro"
+    - "Elixir"
+    - "Docker"
+  cv_priority: 1
+  website_show: true
+
+- id: ingenics-event-driven-fsm
+  name: "Ingenics Digital GmbH — Event-Driven FSM for Embedded Systems"
+  description: "Designed event-driven finite state machine for I2C-based embedded system using C++ and FreeRTOS. Solved complex state management challenges in real-time embedded environment. Outcome: Maintainable in-house architecture leading to fewer bugs and quicker development cycles."
+  url: null
+  technologies:
+    - "C++"
+    - "FreeRTOS"
+    - "I2C"
+  cv_priority: 1
+  website_show: true

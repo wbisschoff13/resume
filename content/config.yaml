@@ -1,0 +1,135 @@
+---
+name: "Werner Bisschoff"
+title:
+  general: "Software Engineer"
+  systems: "Hybrid Edge/Systems Engineer"
+  infrastructure: "Cloud Infrastructure Engineer / Platform Developer"
+
+contact:
+  email: "werner@bisschoff.dev"
+  phone: "071 826 2066"
+  location: "Cape Town, Western Cape, South Africa"
+  github: "wbisschoff13"
+  website: "https://werner.bisschoff.dev"
+  linkedin: "wbisschoff13"
+
+summary:
+  general: >
+    Software engineer with 5+ years of experience bridging hardware and full-stack development.
+    I combine technical depth in C++ and Python with a rigorous, agentic engineering methodology.
+    My focus is on resilient system design and productivity-enhancing AI workflows, governed by
+    security, processes, and specification-driven development.
+  systems: >
+    Hybrid Edge/Systems Engineer with 5+ years of experience architecting end-to-end telemetry
+    systems spanning edge compute to backend integration. Specializes in C/C++ and FreeRTOS for
+    deterministic real-time scheduling, Python for automation and hardware-in-the-loop validation,
+    and Elixir/OTP for distributed platform infrastructure.
+  infrastructure: >
+    Cloud Infrastructure Engineer / Platform Developer with 5+ years of experience designing
+    high-availability infrastructure across Linux systems administration, Docker containerization,
+    and Pulumi infrastructure-as-code. Proven track record in PostgreSQL performance tuning,
+    multi-tenant data isolation, and building resilient automation and deployment pipelines.
+
+ai_policy:
+  - >
+    I treat AI as an agentic partner within a strict engineering framework, moving beyond
+    "vibe-coding" to structured, audit-ready workflows.
+  - >
+    Spec-Driven Development (SDD): Prioritize context-heavy specifications to ensure alignment;
+    AI-generated outputs are treated as hypotheses validated by human-led TDD.
+  - >
+    Data Security: Enforce mandatory sandboxing for all agentic projects; strictly prohibit
+    credential access and utilize tool-based retrieval for scoped, anonymized data only.
+  - >
+    Engineering Rigour: All AI-assisted output undergoes rigorous human-in-the-loop review to
+    ensure it meets enterprise quality and compliance benchmarks.
+  - >
+    Privacy by Design: AI workflows are architected to avoid direct database access; sensitive
+    data remains behind scoped, tool-mediated retrieval with no standing credentials exposed to agents.
+
+job_target:
+  - >
+    Seeking a mid to senior software engineering role (remote preferred, hybrid max. 2 days/week
+    on-site in Cape Town) with emphasis on embedded systems, backend services, or AI-assisted
+    development workflows. Prefers small, focused teams with clear goals and engineering culture.
+    Open to permanent or contract (3+ months) arrangements.
+
+certification: "AWS Certified Solutions Architect – Associate (In Progress — Target: 6 Weeks)"
+
+cover_letter:
+  about_me:
+    general: >
+      I am a software engineer with over 5 years of experience bridging hardware, full-stack
+      development, and resilient system architecture. My approach combines deep technical expertise
+      with a rigorous, AI-augmented methodology — utilizing agentic workflows to ship reliable
+      software at high velocity. With a background in Computer and Electronic Engineering (B.Eng.),
+      I don't just write code; I design systems that last, from low-level firmware to cloud-native
+      infrastructures.
+    systems: >
+      I am writing to express my interest in the Senior Systems Engineering position at [Company].
+      I specialize in engineering deterministic, real-time software architectures (C/C++, FreeRTOS,
+      Elixir/OTP) and secure, spec-driven communication protocols. Throughout my career, my focus
+      has been on eliminating runtime faults and managing high-concurrency systems at the edge and
+      data boundaries.
+    infrastructure: >
+      I am writing to explore the Enterprise Systems Architect position at [Company]. I bring over
+      5 years of experience designing robust business automation engines, multi-tenant database
+      infrastructures, and scalable custom extensions within the ERPNext/Frappe ecosystem.
+
+  why_me:
+    general:
+      - >
+        Hard Engineering & System Design: My foundations are in complex, real-time systems. At
+        Ingenics Digital, I designed an event-driven finite state machine for embedded systems
+        using C++ and FreeRTOS, creating a maintainable architecture that reduced bugs and
+        accelerated development cycles. Whether I am working with memory-constrained
+        microcontrollers or distributed cloud services, I prioritize long-term maintainability
+        and architectural integrity.
+      - >
+        Strategic AI Integration: I treat AI as a powerful force multiplier for my existing
+        engineering skills, applying it where it offers the greatest leverage while remaining
+        fully capable of developing complex systems manually. I use Claude Code for surgical,
+        interactive debugging and Droid by Factory for programmatic automation. This allows me
+        to maintain high code quality and rigour while moving at the pace of a modern, high-impact
+        environment, without incurring technical debt.
+      - >
+        Full-Stack Versatility & Impact: My technical breadth is grounded in practical delivery.
+        At FARO Africa, I extended ERPNext systems (Python/JS), built mobile features in Expo
+        with NFC integration, and provisioned AWS infrastructure with Pulumi. This versatility
+        is complemented by my "impact over process" philosophy — demonstrated by my work founding
+        Divergent Tabletop, where I apply systems thinking to solve real-world community challenges.
+      - >
+        Resilient Infrastructure: Beyond application code, I am comfortable with the "plumbing"
+        of modern software, including Docker for development and CI/CD. I am currently preparing
+        to open-source my community wiki project, reflecting my commitment to shared knowledge
+        and the Open Source ecosystem.
+    systems:
+      - >
+        Recently, as Principal Systems Architect for the open-source Divergent Tabletop ecosystem,
+        I engineered a high-concurrency real-time wiki engine using Elixir with the y_ex CRDT
+        library. By implementing a dynamic supervision tree and an actor-based memory buffering
+        architecture, I achieved 99.9% fault isolation and reduced per-session memory overhead
+        by 60%.
+    infrastructure:
+      - >
+        My recent work highlights my ability to transform complex real-world operational challenges
+        into scalable, secure software architectures. As the Principal Systems Architect for the
+        Divergent Tabletop documentation engine, I designed and deployed a single-database
+        multi-tenant architecture utilizing PostgreSQL Row-Level Security (RLS) and
+        transaction-scoped context injection. This strategy, combined with an in-memory
+        transactional flushing architecture, safely reduced database write volumes by 85% under
+        heavy user concurrency. Additionally, my background at FARO Africa includes leading the
+        migration of business workflows from Retool into custom Expo mobile environments,
+        significantly lowering operational latency and eliminating third-party licensing dependencies.
+
+  how_i_work:
+    systems:
+      - >
+        I approach software through the lens of Spec-Driven Development (SDD) to ensure code
+        correctness and maintain clear, robust architectures. I am looking forward to bringing
+        this systems-level discipline to [Company]'s engineering team.
+    infrastructure:
+      - >
+        I execute tasks using strict Spec-Driven Development frameworks to deliver highly
+        maintainable codebases that align perfectly with business goals. I am eager to help
+        optimize and scale [Company]'s enterprise core.

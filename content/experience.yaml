@@ -1,0 +1,288 @@
+---
+- id: divergent-tabletop
+  company: "Divergent Tabletop"
+  location: "Cape Town"
+  role:
+    general: "Founder and Host"
+    systems: "Principal Systems Architect"
+    infrastructure: "Principal Systems Architect"
+  start_date: "Jul 2025"
+  end_date: null
+  variant_tags:
+    - "general"
+    - "systems"
+    - "infrastructure"
+  bullets:
+    - text: "Founded neurodivergent-focused peer community; manage event operations and WhatsApp-based community platform."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Applied systems thinking to solve community management challenges through software solutions."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Engineered a distributed real-time data engine utilizing Elixir/OTP and conflict-free replicated data types (CRDT models). Deployed in-memory GenServer storage buffers with threshold-based flush mechanics, reducing direct database write transactions by approximately 85% under sustained edit workloads."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Integrated a Rust-backed CRDT synchronization layer (y_ex) using actor-based concurrency, achieving sub-50ms convergence latency across distributed editing sessions through deterministic state reconciliation and binary delta serialization."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Designed a dynamic BEAM supervision tree with one_for_one isolation, encapsulating each page editing session in its own process subtree to prevent cascading failures and guarantee per-session state integrity."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Engineered and hosted an enterprise-grade documentation ecosystem."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Implemented a single-database multi-tenant separation engine using PostgreSQL Row-Level Security (RLS) and transaction-scoped local parameters (SET LOCAL), enforcing strict data silos across isolated groups."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Designed an atomic asynchronous flush strategy using in-memory GenServer storage buffers, reducing database persistent write transactions by 85% during periods of high user interaction."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Utilized Ecto.Multi atomic chains and Oban transactional background workers to ensure multi-stage backend edits (e.g., structural document renaming and incoming backlink indexing) execute completely or roll back safely."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Applied Universal Design and Executive Functioning support models to product UX/UI; established highly structured, low-context asynchronous operational playbooks that minimized cognitive friction for contributors."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+
+- id: faro-africa
+  company: "FARO Africa"
+  location: "Cape Town"
+  role:
+    general: "Full-Stack Software Engineer"
+    systems: "Embedded Systems & Integration Engineer"
+    infrastructure: "Full-Stack ERPNext & Automation Engineer"
+  start_date: "Aug 2024"
+  end_date: "Nov 2025"
+  variant_tags:
+    - "general"
+    - "systems"
+    - "infrastructure"
+  bullets:
+    - text: "Extended ERPNext using Python/JavaScript to improve workflows, pricing logic, and operational reporting (SQL) → reduced manual reporting time and improved data accuracy."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Built mobile application in Expo, including NFC (ISO 14443-4 APDUs) for e-paper price tags and card operations → enabled real-time price updates with fewer tagging errors."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Migrated internal mobile Retool workflows to Expo → improved performance and enhanced long-term maintainability."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Provisioned AWS infrastructure with Pulumi; deployed Inngest and PayloadCMS services."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Diagnosed and resolved issues in a large existing ERPNext installation."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Introduced LLM-assisted development workflows → improved debugging speed and code review throughput, enabling faster iteration."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Designed ISO 14443-4 NFC communication architectures for e-paper display nodes and secure card reader matrices."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Engineered lock-free asynchronous device management services bridging hardware peripherals with application layers."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Built Python-based hardware peripheral simulators to catch edge-case device state corruptions prior to flashing."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Introduced LLM-assisted development workflows to improve debugging speed and code review throughput."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Identified poor UX as root cause of recurring user errors — pushed back against 'training gap' framing, proposed user research to validate, and drove UX improvements that reduced task completion time and error rates."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: "ux-improvements"
+    - text: "Refactored and extended ERPNext via Python and JavaScript server hooks, optimizing pricing matrices and BI reporting."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Architected migration of internal Retool workflows to Expo/React Native, reducing vendor licensing overhead."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Built custom NFC scanner utilities within Expo for instantaneous physical inventory syncs."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Provisioned and maintained a secure virtualized Linux infrastructure environment using Docker Compose for container isolation and writing custom backup and monitoring scripts."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Diagnosed and resolved issues in a large existing ERPNext installation; introduced LLM-assisted debugging workflows."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+
+- id: ingenics-digital
+  company: "Ingenics Digital GmbH (through ViVa Outsourcing)"
+  location: "Remote"
+  role:
+    general: "Embedded Software Engineer"
+    systems: "Firmware Engineer (Contract)"
+    infrastructure: "Enterprise Infrastructure & Tooling Engineer"
+  start_date: "Mar 2023"
+  end_date: "May 2024"
+  variant_tags:
+    - "general"
+    - "systems"
+    - "infrastructure"
+  bullets:
+    - text: "Designed event-driven FSM for I2C-based embedded system (C++/FreeRTOS) → maintainable architecture, fewer bugs."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Developed ESP32 applications (C/C++, ESP-IDF) with configurable BLE stack, TinyFrame protocol, and FOTA updates."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Built Python tooling for serial/BLE communication, hardware mocks, and pytest async workflows → accelerated testing."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Developed active object within QP Real-Time Embedded Framework (QSPY) to simulate device behaviour."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Architected deterministic FSMs on dual-core ESP32 using FreeRTOS for concurrent sensor arrays."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Developed Cap'n Proto IPC over serial lines, achieving sub-millisecond serialization latency."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Built modular Python utility structures and automation scripts for internal configuration schema validation."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Designed data handling pipelines ensuring data transfer consistency across runtime platforms using declarative specifications."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Developed Python hardware mocks enabling faster development cycles with fewer hardware dependencies."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+
+- id: uman-technologies
+  company: "UMAN Technologies"
+  location: "Cape Town"
+  role:
+    general: "Software Developer"
+    systems: "Software Developer"
+    infrastructure: "Infrastructure & Tooling Developer"
+  start_date: "Mar 2021"
+  end_date: "Dec 2022"
+  variant_tags:
+    - "general"
+    - "systems"
+    - "infrastructure"
+  bullets:
+    - text: "Implemented SOME/IP RPC services; optimized performance bottlenecks with perf."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Built IPC/RPC layers (C++/Python) using Cap'n Proto; led small team using Agile practices."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null
+    - text: "Used perf profiling and flamegraphs to trace a performance bottleneck to JSON serialization and verbose logging in a SOME/IP request handling loop. Eliminated unnecessary logging via config toggle reducing latency by approximately 80%, then drove an architecture redesign to phase out JSON entirely."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: "some-ip-performance-investigation"
+    - text: "Sole owner of an IPC service layer — studied existing node schema, designed node structures and data contracts, and implemented the communication layer enabling the frontend to consume the service."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: "ipc-service-implementation"
+    - text: "Built Python-based SOME/IP hardware mocks simulating request/response behavior; integrated into CI so automated tests ran without physical hardware."
+      variant: "systems"
+      cv_priority: 1
+      website_show: true
+      star_ref: "some-ip-hardware-mocks"
+    - text: "Proactively created a Docker development container replicating the exact hardware environment — including VLAN and networking configuration — reducing setup time from hours to under an hour and enabling remote teams to develop without physical hardware."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: "docker-development-container"
+    - text: "Built Python hardware mocks simulating SOME/IP behavior; integrated into CI to enable automated testing without physical hardware, improving test coverage and developer productivity."
+      variant: "infrastructure"
+      cv_priority: 1
+      website_show: true
+      star_ref: "some-ip-hardware-mocks"
+
+- id: north-west-university
+  company: "North-West University"
+  location: "Potchefstroom"
+  role:
+    general: "Junior Lecturer"
+    systems: "Junior Lecturer"
+    infrastructure: "Junior Lecturer"
+  start_date: "Feb 2020"
+  end_date: "Dec 2020"
+  variant_tags:
+    - "general"
+  bullets:
+    - text: "Lectured Python and C++ programming for Introduction to Programming for first year IT students in both remote and in-person settings."
+      variant: "general"
+      cv_priority: 1
+      website_show: true
+      star_ref: null

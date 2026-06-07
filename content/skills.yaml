@@ -1,0 +1,102 @@
+---
+- category: "Primary"
+  items:
+    - "C/C++"
+    - "Python"
+    - "FreeRTOS"
+    - "ESP32/ESP-IDF"
+    - "NFC APDU (ISO 14443-4)"
+  variant: "general"
+
+- category: "Secondary"
+  items:
+    - "NimBLE"
+    - "UART/SPI/I2C"
+    - "TinyFrame"
+    - "BLE"
+    - "Hardware-in-the-Loop Testing"
+  variant: "general"
+
+- category: "Foundational"
+  items:
+    - "SQL"
+    - "Docker"
+    - "CI/CD"
+    - "Git"
+    - "Linux"
+  variant: "general"
+
+- category: "Other"
+  items:
+    - "React"
+    - "Phoenix"
+    - "AWS"
+    - "Pulumi"
+    - "ERPNext"
+  variant: "general"
+
+- category: "Primary Competencies"
+  items:
+    - "C"
+    - "C++"
+    - "FreeRTOS"
+    - "ESP32/ESP-IDF"
+    - "NFC APDU (ISO 14443-4)"
+  variant: "systems"
+
+- category: "Secondary Competencies"
+  items:
+    - "NimBLE"
+    - "Bare-Metal Runtimes"
+    - "UART/SPI/I2C"
+    - "Hardware-in-the-Loop (HIL) Testing"
+  variant: "systems"
+
+- category: "Foundational Systems"
+  items:
+    - "Linux IPC"
+    - "Bash"
+    - "Python (pytest, Custom Automation Frameworks)"
+    - "Assembly"
+    - "System Modeling"
+  variant: "systems"
+
+- category: "Cross-Domain Integration"
+  items:
+    - "ERPNext (Integration-focused)"
+    - "Docker"
+    - "Spec-Driven Development (SDD)"
+  variant: "systems"
+
+- category: "Primary Competencies"
+  items:
+    - "Python"
+    - "Docker"
+    - "Docker Compose"
+    - "AWS (Solutions Architect – In Progress)"
+    - "PostgreSQL (Row-Level Security, Index Tuning, Connection Pooling)"
+  variant: "infrastructure"
+
+- category: "Secondary Platforms"
+  items:
+    - "ERPNext/Frappe Framework"
+    - "Elixir/OTP"
+    - "Asynchronous Workflow Engines (Inngest, Oban)"
+  variant: "infrastructure"
+
+- category: "Data Layer Infrastructure"
+  items:
+    - "SQL"
+    - "Ecto.Multi"
+  variant: "infrastructure"
+
+- category: "Systems & Automation"
+  items:
+    - "Pulumi (IaC)"
+    - "Linux Systems Administration"
+    - "CI/CD Pipelines"
+    - "Bash Scripting"
+    - "Network Proxies"
+    - "SSH Networking"
+    - "Spec-Driven Development (SDD)"
+  variant: "infrastructure"

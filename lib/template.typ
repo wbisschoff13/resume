@@ -1,4 +1,5 @@
 #import "modern-cv.typ": *
+#import "../content/data.typ": _star_text
 
 #let _resolve(value, variant) = {
   if type(value) == dictionary and variant in value {
@@ -8,6 +9,20 @@
   }
 }
 
+#let _normalize_bullets(descs) = {
+  descs.map(b => {
+    if type(b) == dictionary {
+      let story = b.at("star_story", default: none)
+      if story == none {
+        story = _star_text(b.at("star_ref", default: none))
+      }
+      (text: b.at("text", default: ""), star_story: story)
+    } else {
+      (text: str(b), star_story: none)
+    }
+  })
+}
+
 #let _resolve_entries(entries, variant) = {
   entries.map(entry => (
     role: _resolve(entry.at("role", default: "Role"), variant),
@@ -15,7 +30,9 @@
     location: entry.at("location", default: ""),
     start_date: entry.at("start_date", default: ""),
     end_date: entry.at("end_date", default: none),
-    description: _resolve(entry.at("description", default: ()), variant),
+    description: _normalize_bullets(
+      _resolve(entry.at("description", default: ()), variant),
+    ),
   ))
 }
 
@@ -48,16 +65,16 @@
   let position = _resolve(data.at("position", default: none), variant)
   let summary = _resolve(data.at("summary", default: none), variant)
   let entries = _resolve_entries(
-    data.at("experience", default: data.at("experience_entries", default: ())),
+    data.at("experience", default: ()),
     variant,
   )
   let education = _resolve_education(
-    data.at("education", default: data.at("education_entries", default: ())),
+    data.at("education", default: ()),
     variant,
   )
-  let skills = data.at("skills", default: data.at("skill_categories", default: ()))
+  let skills = data.at("skills", default: ())
   let projects = _resolve_projects(
-    data.at("projects", default: data.at("project_entries", default: ())),
+    data.at("projects", default: ()),
     variant,
   )
   let filtered_skills = skills.filter(cat => cat.variant == variant)
@@ -97,7 +114,7 @@
     #if filtered_skills.len() > 0 [
       = Skills
       #for cat in filtered_skills [
-        #resume-skill-item(cat.category_name, cat.skills.map(s => text(s)))
+        #resume-skill-item(cat.category, cat.items.map(s => text(s)))
       ]
     ]
 
@@ -115,7 +132,13 @@
         #if entry.description.len() > 0 [
           #resume-item[
             #for desc in entry.description [
-              - #desc
+              - #desc.text
+              #if desc.star_story != none [
+                #set text(size: 9pt, style: "italic")
+                #pad(left: 1.5em, top: 2pt, bottom: 2pt)[
+                  #desc.star_story
+                ]
+              ]
             ]
           ]
         ]

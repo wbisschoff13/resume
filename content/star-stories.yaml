@@ -1,0 +1,142 @@
+---
+- id: some-ip-performance-investigation
+  situation: >
+    Our C++ library for customer hardware had severe latency issues — customers couldn't use the software at all.
+  task: >
+    I was tasked to investigate and fix the performance bottleneck.
+  action: >
+    I used perf to profile the hot paths during live requests, generated flamegraphs, and traced the problem to JSON serialization in the request handling loop. Verbose logging on every JSON operation made it worse. I disabled the unnecessary logging via a config toggle as a first step. I then participated in the design discussion and helped drive the effort to phase out JSON entirely through a complete architecture redesign for dynamic payload creation. I self-taught the SOME/IP protocol from specs to ensure the new approach was spec-compliant.
+  result: >
+    Removing verbose logging alone improved some request calls by 80%. The full architecture redesign eliminated the bottleneck long-term, restoring full functionality for customers.
+  metrics:
+    - "80% latency improvement"
+
+- id: docker-development-container
+  situation: >
+    Remote teams were developing software for an embedded Linux hardware system. Each developer set up their own environment manually, leading to inconsistencies and slow onboarding.
+  task: >
+    Enable the team to develop and test reliably without physical hardware, regardless of local setup.
+  action: >
+    I proactively created a Dockerfile that replicated the exact hardware environment — including VLAN setup and networking configuration — matching production precisely. I had to convince a skeptical team member who preferred pushing images to a remote service, arguing for a simpler local-first approach.
+  result: >
+    Setup time reduced from hours to under an hour. Remote teams could run and test the full system without physical hardware. Onboarding new engineers became significantly faster.
+
+- id: some-ip-hardware-mocks
+  situation: >
+    Physical hardware wasn't always available for testing. Automated tests couldn't run at all.
+  task: >
+    Enable automated testing without access to real hardware.
+  action: >
+    I built Python mocks that simulated SOME/IP requests and responses, creating a test harness that replicated hardware behavior. I ensured the mocks were integrated into CI so tests ran automatically against them.
+  result: >
+    The mocks were adopted by the team and integrated into CI. Automated tests could run without physical hardware, improving test coverage and developer productivity.
+
+- id: ipc-service-implementation
+  situation: >
+    Customers needed to dynamically add our service to the hardware box and interact with it via IPC.
+  task: >
+    Design and implement the IPC layer for our SOME/IP simulation service — specifically, what nodes to expose and what data they would contain — so the frontend could consume it.
+  action: >
+    I was the sole owner of our service's IPC implementation. I studied the existing node schema and designed how to expose our service, defining the node structure and data contracts. There were a few iterations early on — I had some initial misunderstandings about how it should work — but I worked through them and wrote the code to make our service available to the frontend.
+  result: >
+    The IPC layer was implemented and customers could successfully integrate our service into the hardware box.
+
+- id: finite-state-machine-framework
+  situation: >
+    A customer needed a robust, event-driven finite state machine for industrial IoT devices. The existing C-based approach (built on the QP framework) wasn't robust or memory-safe enough for their requirements.
+  task: >
+    Design and implement a finite state machine framework that the customer could use for their specific systems.
+  action: >
+    I chose C++ over C for memory safety and designed the entire framework — including event handler registration, state transition logic, and example implementations — so the customer could adapt it to any set of states, transitions, and event handlers. I learned C++ features (templates, RAII, smart pointers) to implement a dynamic event-driven FSM that wouldn't rely on the C-style void pointer shortcuts.
+  result: >
+    The customer built on top of the framework for their customer-facing products. The FSM provided a robust, memory-safe foundation for their industrial IoT systems.
+
+- id: wbus3-protocol-implementation
+  situation: >
+    The customer needed a proprietary WBUS3 protocol implemented on top of I2C for their embedded system. Manual testing was the only approach available.
+  task: >
+    Implement the WBUS3 protocol and create a testing framework to enable reliable development.
+  action: >
+    I acquired ESP32 devices and implemented the WBUS3 protocol on the target MCU. WBUS3 added flow control, an interrupt line, and reset logic on top of standard I2C. I also created unit tests and hardware request mocks so the customer could test without physical hardware.
+  result: >
+    The customer used the testing framework to continue WBUS3 development more reliably. Testing no longer depended on manual hardware access.
+
+- id: nfc-e-ink-label-app
+  situation: >
+    A startup fashion retailer wanted to use e-paper price tags for shelf markdowns instead of manual paper tags. We had partial knowledge of the APDU commands needed, but not the exact image format the proprietary device expected.
+  task: >
+    Figure out how to generate an e-ink compatible image and send raw data over APDU to the proprietary e-ink display, as part of an R&D project.
+  action: >
+    I reverse engineered the image format through extensive trial and error and documentation research. The protocol required a specific "binnng" process where data had to be sent in a particular way. I used my prior experience with NFC and APDU protocols to build an Expo app on Android that generated the correct image and transmitted it to the display. I worked solo given my specific background.
+  result: >
+    I built a fully functional label creation app that could generate e-ink compatible images and send them to the proprietary display. The R&D project explored whether e-paper price tags were viable for the retailer.
+
+- id: testing-framework
+  situation: >
+    No automated tests existed. The ERPNext/Frappe testing suite had reproducibility issues — it modified the database, so running the suite twice produced different results.
+  task: >
+    Establish automated testing for the codebase.
+  action: >
+    I championed the creation of a testing framework despite no allocated time for it. I worked around the Frappe testing suite's faults — fixing CI configuration where needed — and created regression and integration tests for the most critical functionality, backfilling tests for existing code.
+  result: >
+    Tests were integrated into GitHub CI and ran on all PRs. The team now had automated regression coverage for critical paths.
+
+- id: ux-improvements
+  situation: >
+    Internal warehouse tools were hard to use — requiring many taps to navigate to common actions. There had been frequent user error reports. The tech team attributed this to a "training gap," but I identified it as a UX problem. Changes were initially resisted as "unnecessary."
+  task: >
+    Improve the UX of internal tools during a Retool-to-Expo migration.
+  action: >
+    I pushed back on the "training gap" framing, arguing the root cause was poor UX design. I proposed interviewing ground staff to validate my hypothesis, then made initial improvements based on gut calls to demonstrate value. I took ownership of the UX design for the new versions and argued for the investment.
+  result: >
+    The team eventually adopted the UX changes. Fewer taps reduced task completion time and user error rates dropped — validating that the problem was UX, not training.
+
+- id: sdd-framework
+  situation: >
+    AI-assisted development often produced outputs misaligned with my vision — requiring many iterations to reach satisfaction. I was doing "vibe coding" without deterministic guardrails to keep AI on track.
+  task: >
+    Create a development framework that would add determinism to agentic coding, ensuring AI worked on the right problems and stayed aligned with the intended outcome.
+  action: >
+    I designed a Spec-Driven Development (SDD) framework that combines Acceptance Test Driven Development, Test Driven Development, and Test Driven Agentic Development. The framework provides structured specifications before coding, creating checkpoints that surface misalignments and inefficiencies before they become problems.
+  result: >
+    Using SDD, I caught inefficiencies and misalignment early across multiple projects. The framework improved my agentic coding efficiency by reducing wasted iterations and keeping AI output aligned with goals.
+
+- id: kintree-crdt-architecture
+  situation: >
+    When designing the collaborative wiki, the initial approach of edit locking could lock users out of pages and introduce wait times. I wanted to avoid that friction from a user experience perspective.
+  task: >
+    Design a collaborative editing system that allowed multiple users to edit simultaneously without lock conflicts.
+  action: >
+    I chose CRDT (Conflict-free Replicated Data Types) via the y_ex library (Rust-backed) to handle concurrent edits without requiring locks. I designed the PostgreSQL schema with dual storage — a CRDT field for editing and a raw text field to enable fast full-text search and future AI moderation capabilities. I used Elixir's Registry for O(1) lookup to map page IDs to EditLock GenServer PIDs, allowing efficient process address resolution without bottlenecks.
+  result: >
+    The CRDT approach eliminated edit lock conflicts entirely. Multiple users can edit simultaneously, with the dual storage schema enabling both efficient search and AI integration without requiring a separate search engine.
+
+- id: self-taught-elixir-phoenix
+  situation: >
+    I needed a technology stack suited for a collaborative, concurrent, real-time wiki. I had no prior experience with Elixir.
+  task: >
+    Choose and learn a technology stack that would provide functional programming benefits, robustness, and efficient real-time capabilities for the Kintree wiki.
+  action: >
+    I chose Elixir for its emphasis on functional programming and immutable data — reducing bugs from unforeseen state changes. Phoenix was recommended as a robust concurrent framework, and LiveView because it uses WebSockets natively, eliminating the need for a separate REST API. I self-taught the entire stack and built Kintree from scratch.
+  result: >
+    I built a production-grade collaborative wiki engine using self-taught Elixir/Phoenix/LiveView, handling concurrent real-time editing without a separate API layer.
+
+- id: events-rotation-system
+  situation: >
+    As the sole host of multi-table board game events, I faced the challenge of teaching games at multiple tables while managing member flow and keeping events running smoothly.
+  task: >
+    Solve the problem of managing multiple tables and teaching games as a single host.
+  action: >
+    I designed a rotation system using a card-dealing approach for quick member shuffling. I created custom player aids — simplified reference materials for game rules — so attendees could self-teach without relying solely on me. When possible, I trained volunteers to host one table, further distributing the teaching burden.
+  result: >
+    Events ran smoothly despite having a single host. Player aids reduced my direct teaching time, and the rotation system kept the event flowing without bottlenecks.
+
+- id: astro-website-accessibility
+  situation: >
+    I built the Divergent Tabletop community website using Astro. The community includes a vent and support group where trigger warnings and spoilers needed appropriate handling.
+  task: >
+    Ensure the website met accessibility standards and had proper content warnings for sensitive discussions.
+  action: >
+    I built the website with WCAG compliance as a target, ensuring keyboard-based navigation and readability. I created a "read more" forced-scroll tool for trigger warnings and spoilers — handling edge cases like invisible Unicode characters that display differently than their character count suggests. I optimized for Lighthouse performance to ensure fast load times.
+  result: >
+    The website met accessibility standards with keyboard navigation support. The trigger warning tool was implemented for the community's sensitive content needs.

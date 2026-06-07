@@ -6,3 +6,4 @@
 {"issue_id":"\"ISS-002\"","status":"COMPLETED","timestamp":"2026-06-07T08:50:49Z"}
 {"issue_id":"ISS-001","type":"feature","title":"feat(002): YAML-Driven CV Compilation Pipeline","status":"BACKLOG","timestamp":"2026-06-07T15:32:05Z","source_file":"specs/002-yaml-content-layer/issues/001-yaml-driven-cv-compilation.md","blocked_by":[],"coordinates_with":[]}
 {"issue_id":"ISS-002","type":"feature","title":"feat(002): Legacy Artifact Removal & CI Verification","status":"BACKLOG","timestamp":"2026-06-07T15:32:05Z","source_file":"specs/002-yaml-content-layer/issues/002-legacy-cleanup-ci-verification.md","blocked_by":[],"coordinates_with":[]}
+{"issue_id": "ISS-001","status": "COMPLETED","timestamp": "2026-06-07T16:39:38Z"}

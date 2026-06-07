@@ -57,6 +57,10 @@ run = "rm -f W_Bisschoff_CV.pdf W_Bisschoff_CV_systems.pdf W_Bisschoff_CV_infras
 description = "Verify mise toolchain and typst version"
 run = "mise install && typst --version"
 
+[tasks.test]
+description = "Run T002 YAML adapter integration tests"
+run = "bash tests/test_yaml_adapter.sh"
+
 [tasks.help]
 description = "List available mise tasks"
 run = "mise tasks --no-header"
