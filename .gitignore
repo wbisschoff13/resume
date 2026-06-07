@@ -1,6 +1,4 @@
 build/
-*.synctex.gz
-
 
 # Logs
 logs
@@ -30,10 +28,6 @@ node_modules/
 
 .taskmaster
 thoughts/
-
-# LaTeX auxiliary files
-*.aux
-*.out
 
 # Typst cache directory
 .typst/

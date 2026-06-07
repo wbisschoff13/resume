@@ -1,0 +1,40 @@
+{
+  "task_id": "T003",
+  "files_modified": [
+    {
+      "path": ".github/workflows/release.yml",
+      "action": "modified",
+      "purpose": "Migrated from LaTeX-based release to Typst matrix build with typst-community/setup-typst@v5"
+    }
+  ],
+  "commit_subject": "feat(T003): migrate release workflow to Typst with matrix build strategy",
+  "commit_body": "Replaced xu-cheng/latex-action@v3 steps with typst-community/setup-typst@v5 and matrix strategy covering all 4 entry points (cv.typ, cv_embedded.typ, cv_enterprise.typ, cover_letter.typ). Tag trigger narrowed to v*.*.* only. Added font installation step for custom Roboto/FontAwesome fonts. Version extraction simplified (calver logic removed). fail-fast: false ensures all matrix jobs report independently.",
+  "validation": {
+    "lint": "PASS",
+    "typecheck": "SKIP",
+    "tests": "SKIP",
+    "command": "grep 'typst-community/setup-typst@v5' .github/workflows/release.yml && grep 'cv\\.typ' .github/workflows/release.yml && grep 'v\\*\\.\\*\\.\\*' .github/workflows/release.yml && grep 'fail-fast: false' .github/workflows/release.yml && grep 'cover_letter.typ' .github/workflows/release.yml",
+    "summary": "All verification patterns matched: setup-typst@v5, cv.typ, v*.*.* tag filter, fail-fast: false, and all 4 entry points"
+  },
+  "reasoning": {
+    "approach": "Full rewrite of release.yml from single-job LaTeX pipeline to two-job Typst pipeline with build matrix + release job",
+    "key_decisions": [
+      {
+        "decision": "Separate build and release jobs instead of inline matrix",
+        "rationale": "Matrix+release in a single job would create N releases; separating allows one release with all artifacts collected from matrix builds"
+      },
+      {
+        "decision": "Use actions/upload-artifact + download-artifact for artifact sharing",
+        "rationale": "Standard pattern for sharing artifacts across matrix jobs to a downstream release job. merge-multiple: true simplifies file references"
+      },
+      {
+        "decision": "Copy fonts/ directory to ~/.fonts/ with fc-cache",
+        "rationale": "Mitigates RSK-002 (missing custom fonts on Ubuntu runner). Typst relies on fontconfig cache so fc-cache is required after installing fonts"
+      },
+      {
+        "decision": "Narrowed tag trigger from v* + calver to v*.*.* only",
+        "rationale": "Per HITL decision — only strict semver tags (v1.2.3) should trigger releases. Removed calver pattern [0-9][0-9][0-9][0-9].[0-9][0-9]*"
+      }
+    ]
+  }
+}
