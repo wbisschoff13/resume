@@ -1,16 +1,16 @@
 # Project Constitution
 
-**Version:** 0.1.0
+**Version:** 0.2.0
 
 ---
 
 ## Architectural Principles
 - **LaTeX Removal**: All LaTeX artifacts (`.tex`, `.cls`, LaTeX-specific Dockerfiles, VS Code LaTeX configs) must be removed.
-- **Data/Presentation Separation**: Content must be strictly separated from layout logic using native Typst dictionaries.
+- **Data/Presentation Separation**: Content must be strictly separated from layout logic — stored in `content/*.yaml`, consumed via Typst's built-in `yaml()`.
 - **ATS Compatibility**: All resumes must use single-column layout and `#set text(ligatures: false)` globally.
 - **Bi-Variant Output**: System must support at least three resume variants (General, Embedded Systems Engineer, Enterprise/Infrastructure Engineer) and corresponding cover letters.
 - **Font Management**: Custom fonts must be explicitly loaded via `#set text(font: "...")` using Typst-native equivalents or vendored files for deterministic rendering.
-- **Minimal Complexity**: No external JSON/YAML data serialization — native Typst dictionaries only.
+- **Canonical Data Source**: YAML (`content/*.yaml`) is the single source of truth — imported via Typst's built-in `yaml()`. No external packages required.
 - **Deterministic Builds**: Zero external network calls during compilation.
 
 ## Tech Stack Standards
@@ -61,3 +61,4 @@
 
 ## Version History
 - 0.1.0 — Initial constitution from Typst CV Migration (explore/design/prd)
+- 0.2.0 — Replaced YAML ban with YAML canonical data source; updated Data/Presentation Separation to reference `content/*.yaml`
