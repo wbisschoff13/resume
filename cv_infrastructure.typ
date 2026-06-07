@@ -12,9 +12,7 @@
 #let variant_data = cv_data + (
   position: "Cloud Infrastructure Engineer / Platform Developer",
   experience: filtered_experience,
-  experience_entries: filtered_experience,
   skills: filtered_skills,
-  skill_categories: filtered_skills,
 )
 
 #render_cv(variant_data, variant: "infrastructure")

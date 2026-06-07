@@ -34,8 +34,8 @@ description = "Verify all documents compile without errors"
 run = "typst compile --font-path fonts cv.typ W_Bisschoff_CV.pdf && typst compile --font-path fonts cv_systems.typ W_Bisschoff_CV_systems.pdf && typst compile --font-path fonts cv_infrastructure.typ W_Bisschoff_CV_infrastructure.pdf && typst compile --font-path fonts cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
 
 [tasks.lint]
-description = "Validate Typst syntax via compilation check"
-run = "typst compile --font-path fonts cv.typ /dev/null && typst compile --font-path fonts cover_letter.typ /dev/null"
+description = "Validate all Typst source files compile without errors"
+run = "typst compile --font-path fonts cv.typ /dev/null && typst compile --font-path fonts cv_systems.typ /dev/null && typst compile --font-path fonts cv_infrastructure.typ /dev/null && typst compile --font-path fonts cover_letter.typ /dev/null"
 
 [tasks.dev]
 description = "Watch and recompile general CV on changes"

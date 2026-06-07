@@ -428,6 +428,7 @@
     size: 11pt,
     fill: color-darkgray,
     fallback: true,
+    ligatures: false,
   )
 
   set page(
@@ -810,6 +811,7 @@
     size: 11pt,
     fill: color-darkgray,
     fallback: true,
+    ligatures: false,
   )
 
   set page(
