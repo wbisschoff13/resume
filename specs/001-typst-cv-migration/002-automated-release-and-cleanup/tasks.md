@@ -87,7 +87,7 @@
 
 ### Tasks
 
-- [ ] T003: Migrate release workflow to Typst with matrix build strategy
+- [x] T003: Migrate release workflow to Typst with matrix build strategy
   - **Type**: Migration
   - **Mode**: IMMEDIATE
   - **Verification**: `grep "typst-community/setup-typst@v5" .github/workflows/release.yml && grep "cv\.typ" .github/workflows/release.yml && grep "v\*\.\*\.\*" .github/workflows/release.yml`

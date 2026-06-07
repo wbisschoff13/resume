@@ -3,59 +3,69 @@ name: Release CV
 on:
   push:
     tags:
-      - "v*" # Legacy semver tags (v1.0.0)
-      - "[0-9][0-9][0-9][0-9].[0-9][0-9]*" # Calver tags (2025.01, 2025.01.16)
+      - "v*.*.*"
 
 permissions:
   contents: write
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        entry:
+          - source: cv.typ
+            output: cv.pdf
+          - source: cv_embedded.typ
+            output: cv_embedded.pdf
+          - source: cv_enterprise.typ
+            output: cv_enterprise.pdf
+          - source: cover_letter.typ
+            output: cover_letter.pdf
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install fonts
+        run: |
+          mkdir -p ~/.fonts
+          cp fonts/*.ttf ~/.fonts/
+          fc-cache -fv ~/.fonts
+
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v5
+
+      - name: Build ${{ matrix.entry.output }}
+        run: typst compile ${{ matrix.entry.source }}
+
+      - name: Upload ${{ matrix.entry.output }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.entry.output }}
+          path: ${{ matrix.entry.output }}
+
   release:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build CV with XeLaTeX
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: W_Bisschoff_CV.tex
-          compiler: xelatex
-          args: "-interaction=nonstopmode -shell-escape"
-
-      - name: Build Embedded CV with XeLaTeX
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: W_Bisschoff_CV_embedded.tex
-          compiler: xelatex
-          args: "-interaction=nonstopmode -shell-escape"
-
-      - name: Build Enterprise CV with XeLaTeX
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: W_Bisschoff_CV_enterprise.tex
-          compiler: xelatex
-          args: "-interaction=nonstopmode -shell-escape"
+      - uses: actions/checkout@v4
 
       - name: Extract version from tag
         id: version
         run: |
           TAG=${GITHUB_REF#refs/tags/}
           echo "version=$TAG" >> $GITHUB_OUTPUT
-          # Check if calver (starts with year) or semver (starts with v)
-          if [[ $TAG =~ ^[0-9]{4} ]]; then
-            echo "is_calver=true" >> $GITHUB_OUTPUT
-          else
-            echo "is_calver=false" >> $GITHUB_OUTPUT
-          fi
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            W_Bisschoff_CV.pdf
-            W_Bisschoff_CV_embedded.pdf
-            W_Bisschoff_CV_enterprise.pdf
+          files: artifacts/*
           name: CV ${{ steps.version.outputs.version }}
           body: |
             ## Werner Bisschoff - Curriculum Vitae
@@ -64,13 +74,11 @@ jobs:
 
             **Built from commit:** ${{ github.sha }}
 
-            This release includes three CV variants:
+            This release includes:
             - **Standard CV** - The full professional CV
             - **Embedded CV** - Tailored for embedded
             - **Enterprise CV** - Tailored for enterprise
-
-            ---
-            *Use this PDF for the most up-to-date version of my CV.*
+            - **Cover Letter** - Professional cover letter
           draft: false
           prerelease: false
         env:
