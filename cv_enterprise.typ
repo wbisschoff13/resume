@@ -10,7 +10,7 @@
 )
 
 #let variant_data = cv_data + (
-  position: "Enterprise Systems & Automation Architect",
+  position: "Cloud Infrastructure Engineer / Platform Developer",
   experience: filtered_experience,
   experience_entries: filtered_experience,
   skills: filtered_skills,

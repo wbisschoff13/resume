@@ -16,10 +16,10 @@ jobs:
         entry:
           - source: cv.typ
             output: W_Bisschoff_CV.pdf
-          - source: cv_embedded.typ
-            output: W_Bisschoff_CV_embedded.pdf
-          - source: cv_enterprise.typ
-            output: W_Bisschoff_CV_enterprise.pdf
+          - source: cv_systems.typ
+            output: W_Bisschoff_CV_systems.pdf
+          - source: cv_infrastructure.typ
+            output: W_Bisschoff_CV_infrastructure.pdf
           - source: cover_letter.typ
             output: W_Bisschoff_Cover_Letter.pdf
       fail-fast: false
@@ -76,8 +76,8 @@ jobs:
 
             This release includes:
             - **W_Bisschoff_CV.pdf** - The full professional CV
-            - **W_Bisschoff_CV_embedded.pdf** - Tailored for embedded
-            - **W_Bisschoff_CV_enterprise.pdf** - Tailored for enterprise
+            - **W_Bisschoff_CV_systems.pdf** - Tailored for systems/edge
+            - **W_Bisschoff_CV_infrastructure.pdf** - Tailored for infrastructure/cloud
             - **W_Bisschoff_Cover_Letter.pdf** - Professional cover letter
           draft: false
           prerelease: false

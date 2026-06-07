@@ -2,19 +2,19 @@
 #import "lib/template.typ": render_cv
 
 #let filtered_experience = cv_data.experience.filter(entry =>
-  entry.variant_tags.contains("embedded")
+  entry.variant_tags.contains("infrastructure")
 )
 
 #let filtered_skills = cv_data.skills.filter(cat =>
-  cat.variant == "embedded"
+  cat.variant == "infrastructure"
 )
 
 #let variant_data = cv_data + (
-  position: "Hybrid Edge/Systems Engineer",
+  position: "Cloud Infrastructure Engineer / Platform Developer",
   experience: filtered_experience,
   experience_entries: filtered_experience,
   skills: filtered_skills,
   skill_categories: filtered_skills,
 )
 
-#render_cv(variant_data, variant: "embedded")
+#render_cv(variant_data, variant: "infrastructure")

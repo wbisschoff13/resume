@@ -501,6 +501,11 @@
         author.positions.join(text[#"  "#sym.dot.c#"  "]),
         use-smallcaps,
       )
+      #if ("certification" in author and author.certification != none) [
+        #v(4pt)
+        #set text(accent-color, size: 8pt, weight: "regular", style: "normal")
+        #author.certification
+      ]
     ]
   }
 
@@ -645,16 +650,9 @@
 /// - category (string): The category of the skills
 /// - items (list): The list of skills. This can be a list of strings but you can also emphasize certain skills by using the `strong` function.
 #let resume-skill-item(category, items) = {
-  set block(below: 0.65em)
-  set pad(top: 2pt)
-
+  set block(below: 0.4em)
   pad[
-    #grid(
-      columns: (3fr, 8fr),
-      gutter: 10pt,
-      align: left + top,
-      resume-skill-category(category), resume-skill-values(items),
-    )
+    #resume-skill-category(category) #text(": ") #resume-skill-values(items)
   ]
 }
 

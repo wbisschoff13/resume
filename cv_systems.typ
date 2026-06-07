@@ -2,11 +2,11 @@
 #import "lib/template.typ": render_cv
 
 #let filtered_experience = cv_data.experience.filter(entry =>
-  entry.variant_tags.contains("embedded")
+  entry.variant_tags.contains("systems")
 )
 
 #let filtered_skills = cv_data.skills.filter(cat =>
-  cat.variant == "embedded"
+  cat.variant == "systems"
 )
 
 #let variant_data = cv_data + (
@@ -17,4 +17,4 @@
   skill_categories: filtered_skills,
 )
 
-#render_cv(variant_data, variant: "embedded")
+#render_cv(variant_data, variant: "systems")

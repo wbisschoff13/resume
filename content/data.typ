@@ -2,26 +2,25 @@
   (
     role: (
       general: "Founder and Host",
-      embedded: "Principal Systems Architect",
-      enterprise: "Principal Systems Architect",
+      systems: "Principal Systems Architect",
+      infrastructure: "Principal Systems Architect",
     ),
     company: "Divergent Tabletop",
     location: "Cape Town",
     start_date: "Jul 2025",
     end_date: none,
-    variant_tags: ("general", "embedded", "enterprise"),
+    variant_tags: ("general", "systems", "infrastructure"),
     description: (
       general: (
         [Founded neurodivergent-focused peer community; manage event operations and WhatsApp-based community platform.],
         [Applied systems thinking to solve community management challenges through software solutions.],
       ),
-      embedded: (
-        [Integrated a CRDT synchronization layer (y_ex) to handle real-time modifications; implemented an actor-based buffering model that reduced state-sync latency to sub-50ms thresholds.],
-        [Designed a dynamic BEAM supervision tree with a :one_for_one strategy to isolate concurrent page editing instances, ensuring 99.9% fault isolation and zero system-wide cascading crashes.],
-        [Implemented a threshold-based buffer flush and scheduled heap hibernation (hibernate_after), reducing process memory footprints by ~60% under active network I/O concurrency.],
-        [Applied Monotropic focus principles and Universal Design to minimize user information processing overhead and ensure highly predictable, deterministic information layout.],
+      systems: (
+        [Engineered a distributed real-time data engine utilizing Elixir/OTP and conflict-free replicated data types (CRDT models). Deployed in-memory GenServer storage buffers with threshold-based flush mechanics, reducing direct database write transactions by approximately 85% under sustained edit workloads.],
+        [Integrated a Rust-backed CRDT synchronization layer (y_ex) using actor-based concurrency, achieving sub-50ms convergence latency across distributed editing sessions through deterministic state reconciliation and binary delta serialization.],
+        [Designed a dynamic BEAM supervision tree with one_for_one isolation, encapsulating each page editing session in its own process subtree to prevent cascading failures and guarantee per-session state integrity.],
       ),
-      enterprise: (
+      infrastructure: (
         [Engineered and hosted an enterprise-grade documentation ecosystem.],
         [Implemented a single-database multi-tenant separation engine using PostgreSQL Row-Level Security (RLS) and transaction-scoped local parameters (SET LOCAL), enforcing strict data silos across isolated groups.],
         [Designed an atomic asynchronous flush strategy using in-memory GenServer storage buffers, reducing database persistent write transactions by 85% during periods of high user interaction.],
@@ -33,14 +32,14 @@
   (
     role: (
       general: "Full-Stack Software Engineer",
-      embedded: "Embedded Systems & Integration Engineer",
-      enterprise: "Full-Stack ERPNext & Automation Engineer",
+      systems: "Embedded Systems & Integration Engineer",
+      infrastructure: "Full-Stack ERPNext & Automation Engineer",
     ),
     company: "FARO Africa",
     location: "Cape Town",
     start_date: "Aug 2024",
     end_date: "Nov 2025",
-    variant_tags: ("general", "embedded", "enterprise"),
+    variant_tags: ("general", "systems", "infrastructure"),
     description: (
       general: (
         [Extended ERPNext using Python/JavaScript to improve workflows, pricing logic, and operational reporting (SQL) → reduced manual reporting time and improved data accuracy.],
@@ -50,17 +49,17 @@
         [Diagnosed and resolved issues in a large existing ERPNext installation.],
         [Introduced LLM-assisted development workflows → improved debugging speed and code review throughput, enabling faster iteration.],
       ),
-      embedded: (
+      systems: (
         [Designed ISO 14443-4 NFC communication architectures for e-paper display nodes and secure card reader matrices.],
         [Engineered lock-free asynchronous device management services bridging hardware peripherals with application layers.],
         [Built Python-based hardware peripheral simulators to catch edge-case device state corruptions prior to flashing.],
         [Introduced LLM-assisted development workflows to improve debugging speed and code review throughput.],
       ),
-      enterprise: (
+      infrastructure: (
         [Refactored and extended ERPNext via Python and JavaScript server hooks, optimizing pricing matrices and BI reporting.],
         [Architected migration of internal Retool workflows to Expo/React Native, reducing vendor licensing overhead.],
         [Built custom NFC scanner utilities within Expo for instantaneous physical inventory syncs.],
-        [Provisioned AWS infrastructure with Pulumi, deploying Inngest event-driven functions and PayloadCMS.],
+        [Provisioned and maintained a secure virtualized Linux infrastructure environment using Docker Compose for container isolation and writing custom backup and monitoring scripts.],
         [Diagnosed and resolved issues in a large existing ERPNext installation; introduced LLM-assisted debugging workflows.],
       ),
     ),
@@ -68,26 +67,26 @@
   (
     role: (
       general: "Embedded Software Engineer",
-      embedded: "Firmware Engineer (Contract)",
-      enterprise: "Enterprise Infrastructure & Tooling Engineer",
+      systems: "Firmware Engineer (Contract)",
+      infrastructure: "Enterprise Infrastructure & Tooling Engineer",
     ),
     company: "Ingenics Digital GmbH (through ViVa Outsourcing)",
     location: "Remote",
     start_date: "Mar 2023",
     end_date: "May 2024",
-    variant_tags: ("general", "embedded", "enterprise"),
+    variant_tags: ("general", "systems", "infrastructure"),
     description: (
       general: (
         [Designed event-driven FSM for I2C-based embedded system (C++/FreeRTOS) → maintainable architecture, fewer bugs.],
         [Developed ESP32 applications (C/C++, ESP-IDF) with configurable BLE stack, TinyFrame protocol, and FOTA updates.],
-        [Built Python tooling for serial/BLE communication, hardware mocks, and Pytest async workflows → accelerated testing.],
+        [Built Python tooling for serial/BLE communication, hardware mocks, and pytest async workflows → accelerated testing.],
         [Developed active object within QP Real-Time Embedded Framework (QSPY) to simulate device behaviour.],
       ),
-      embedded: (
+      systems: (
         [Architected deterministic FSMs on dual-core ESP32 using FreeRTOS for concurrent sensor arrays.],
         [Developed Cap'n Proto IPC over serial lines, achieving sub-millisecond serialization latency.],
       ),
-      enterprise: (
+      infrastructure: (
         [Built modular Python utility structures and automation scripts for internal configuration schema validation.],
         [Designed data handling pipelines ensuring data transfer consistency across runtime platforms using declarative specifications.],
         [Developed Python hardware mocks enabling faster development cycles with fewer hardware dependencies.],
@@ -97,19 +96,19 @@
   (
     role: (
       general: "Software Developer",
-      embedded: "Software Developer",
+      systems: "Software Developer",
     ),
     company: "UMAN Technologies",
     location: "Cape Town",
     start_date: "Mar 2021",
     end_date: "Dec 2022",
-    variant_tags: ("general", "embedded"),
+    variant_tags: ("general", "systems"),
     description: (
       general: (
         [Implemented SOME/IP RPC services; optimized performance bottlenecks with perf.],
-        [Built IPC/RPC layers (C++/Python) using Cap'n Proto; led small team using AGILE practices.],
+        [Built IPC/RPC layers (C++/Python) using Cap'n Proto; led small team using Agile practices.],
       ),
-      embedded: (
+      systems: (
         [Implemented RPC services using SOME/IP protocol; reduced bottlenecks with perf.],
         [Built IPC/RPC layers in C++ and Python using Cap'n Proto; designed node trees for IPC interface.],
       ),
@@ -118,23 +117,17 @@
   (
     role: (
       general: "Junior Lecturer",
-      embedded: "Junior Lecturer",
-      enterprise: "Junior Lecturer",
+      systems: "Junior Lecturer",
+      infrastructure: "Junior Lecturer",
     ),
     company: "North-West University",
     location: "Potchefstroom",
     start_date: "Feb 2020",
     end_date: "Dec 2020",
-    variant_tags: ("general", "embedded", "enterprise"),
+    variant_tags: ("general",),
     description: (
       general: (
         [Lectured Python and C++ programming for Introduction to Programming for first year IT students in both remote and in-person settings.],
-      ),
-      embedded: (
-        [Lectured Python and C++ programming for Introduction to Programming for first year IT students.],
-      ),
-      enterprise: (
-        [Lectured Python and C++ programming for Introduction to Programming for first year IT students.],
       ),
     ),
   ),
@@ -150,15 +143,15 @@
       general: (
         [Focus on embedded systems, software engineering, and electronic design],
         [NFC payment emulator (Kotlin/Android), STM32 firmware (C), PID motor controller (Arduino)],
-        [Data analysis with Python/Pandas using linear regression, correlation and machine learning],
+        [Data analysis with Python/pandas using linear regression, correlation and machine learning],
       ),
-      embedded: (
+      systems: (
         [Focus on embedded systems, software engineering, and electronic design],
         [Developed NFC payment protocol emulator (Kotlin/Android), STM32 firmware (C), PID motor controller (Arduino)],
       ),
-      enterprise: (
+      infrastructure: (
         [Focus on embedded systems, software engineering, and electronic design],
-        [Developed data analysis pipeline with Python/Pandas (linear regression, ML); built NFC payment emulator (Kotlin/Android)],
+        [Developed data analysis pipeline with Python/pandas (linear regression, ML); built NFC payment emulator (Kotlin/Android)],
       ),
     ),
   ),
@@ -169,14 +162,15 @@
   (category_name: "Secondary", skills: ("NimBLE", "UART/SPI/I2C", "TinyFrame", "BLE", "Hardware-in-the-Loop Testing"), variant: "general"),
   (category_name: "Foundational", skills: ("SQL", "Docker", "CI/CD", "Git", "Linux"), variant: "general"),
   (category_name: "Other", skills: ("React", "Phoenix", "AWS", "Pulumi", "ERPNext"), variant: "general"),
-  (category_name: "Primary", skills: ("C++", "FreeRTOS", "ESP32/ESP-IDF", "NFC APDU (ISO 14443-4)"), variant: "embedded"),
-  (category_name: "Secondary", skills: ("NimBLE", "UART/SPI/I2C", "TinyFrame", "Hardware-in-the-Loop (HIL) Testing"), variant: "embedded"),
-  (category_name: "Foundational", skills: ("Assembly", "Digital Logic", "System Modeling"), variant: "embedded"),
-  (category_name: "Other", skills: ("ERPNext (Integration-focused)", "Expo Mobile"), variant: "embedded"),
-  (category_name: "Primary", skills: ("Python", "ERPNext/Frappe Framework", "Expo (React Native)", "Inngest"), variant: "enterprise"),
-  (category_name: "Secondary", skills: ("AWS", "Pulumi (IaC)", "PostgreSQL (RLS)", "Docker"), variant: "enterprise"),
-  (category_name: "Foundational", skills: ("SQL", "Object-Oriented Design", "Spec-Driven Development"), variant: "enterprise"),
-  (category_name: "Other", skills: ("C++", "FreeRTOS (Low-level integration support)"), variant: "enterprise"),
+  (category_name: "Primary Competencies", skills: ("C", "C++", "FreeRTOS", "ESP32/ESP-IDF", "NFC APDU (ISO 14443-4)"), variant: "systems"),
+  (category_name: "Secondary Competencies", skills: ("NimBLE", "Bare-Metal Runtimes", "UART/SPI/I2C", "Hardware-in-the-Loop (HIL) Testing"), variant: "systems"),
+  (category_name: "Foundational Systems", skills: ("Linux IPC", "Bash", "Python (pytest, Custom Automation Frameworks)", "Assembly", "System Modeling"), variant: "systems"),
+  (category_name: "Cross-Domain Integration", skills: ("ERPNext (Integration-focused)", "Docker", "Spec-Driven Development (SDD)"), variant: "systems"),
+  (category_name: "Primary Competencies", skills: ("Python", "Docker", "Docker Compose", "AWS (Solutions Architect – In Progress)", "PostgreSQL (Row-Level Security, Index Tuning, Connection Pooling)"), variant: "infrastructure"),
+  (category_name: "Secondary Platforms", skills: ("ERPNext/Frappe Framework", "Elixir/OTP", "Asynchronous Workflow Engines (Inngest, Oban)"), variant: "infrastructure"),
+  (category_name: "Data Layer Infrastructure", skills: ("SQL", "Ecto.Multi"), variant: "infrastructure"),
+  (category_name: "Systems & Automation", skills: ("Pulumi (IaC)", "Linux Systems Administration", "CI/CD Pipelines", "Bash Scripting", "Network Proxies", "SSH Networking", "Spec-Driven Development (SDD)"), variant: "infrastructure"),
+
 )
 
 #let _project_entries = (
@@ -186,7 +180,7 @@
       general: ([Built a community wiki using Astro, Elixir, and Docker for knowledge management], [Documented event frameworks, onboarding processes, and communication best practices], [Created tooling for content management and community operations]),
     ),
     link: none,
-    variant_tags: ("general", "embedded", "enterprise"),
+    variant_tags: ("general", "systems", "infrastructure"),
   ),
   (
     name: "Ingenics Digital GmbH \u{2014} Event-Driven FSM for Embedded Systems",
@@ -194,7 +188,7 @@
       general: ([Designed event-driven finite state machine for I2C-based embedded system using C++ and FreeRTOS], [Solved complex state management challenges in real-time embedded environment], [Outcome: Maintainable in-house architecture leading to fewer bugs and quicker development cycles]),
     ),
     link: none,
-    variant_tags: ("general", "embedded"),
+    variant_tags: ("general", "systems"),
   ),
 )
 
@@ -207,10 +201,10 @@
     general: [
       I am a software engineer with over 5 years of experience bridging hardware, full-stack development, and resilient system architecture. My approach combines deep technical expertise with a rigorous, AI-augmented methodology\u{2014}utilizing agentic workflows to ship reliable software at high velocity. With a background in Computer and Electronic Engineering (B.Eng.), I don't just write code; I design systems that last, from low-level firmware to cloud-native infrastructures.
     ],
-    embedded: [
+    systems: [
       I am writing to express my interest in the Senior Systems Engineering position at [Company]. I specialize in engineering deterministic, real-time software architectures (C/C++, FreeRTOS, Elixir/OTP) and secure, spec-driven communication protocols. Throughout my career, my focus has been on eliminating runtime faults and managing high-concurrency systems at the edge and data boundaries.
     ],
-    enterprise: [
+    infrastructure: [
       I am writing to explore the Enterprise Systems Architect position at [Company]. I bring over 5 years of experience designing robust business automation engines, multi-tenant database infrastructures, and scalable custom extensions within the ERPNext/Frappe ecosystem.
     ],
   ),
@@ -229,22 +223,22 @@
         Resilient Infrastructure: Beyond application code, I am comfortable with the "plumbing" of modern software, including Docker for development and CI/CD. I am currently preparing to open-source my community wiki project, reflecting my commitment to shared knowledge and the Open Source ecosystem.
       ],
     ),
-    embedded: (
+    systems: (
       [
         Recently, as Principal Systems Architect for the open-source Divergent Tabletop ecosystem, I engineered a high-concurrency real-time wiki engine using Elixir with the y_ex CRDT library. By implementing a dynamic supervision tree and an actor-based memory buffering architecture, I achieved 99.9% fault isolation and reduced per-session memory overhead by 60%.
       ],
     ),
-    enterprise: (
+    infrastructure: (
       [
         My recent work highlights my ability to transform complex real-world operational challenges into scalable, secure software architectures. As the Principal Systems Architect for the Divergent Tabletop documentation engine, I designed and deployed a single-database multi-tenant architecture utilizing PostgreSQL Row-Level Security (RLS) and transaction-scoped context injection. This strategy, combined with an in-memory transactional flushing architecture, safely reduced database write volumes by 85% under heavy user concurrency. Additionally, my background at FARO Africa includes leading the migration of business workflows from Retool into custom Expo mobile environments, significantly lowering operational latency and eliminating third-party licensing dependencies.
       ],
     ),
   ),
   how_i_work: (
-    embedded: [
+    systems: [
       I approach software through the lens of Spec-Driven Development (SDD) to ensure code correctness and maintain clear, robust architectures. I am looking forward to bringing this systems-level discipline to [Company]'s engineering team.
     ],
-    enterprise: [
+    infrastructure: [
       I execute tasks using strict Spec-Driven Development frameworks to deliver highly maintainable codebases that align perfectly with business goals. I am eager to help optimize and scale [Company]'s enterprise core.
     ],
   ),
@@ -260,19 +254,19 @@
   linkedin: "wbisschoff13",
   position: (
     general: "Software Engineer",
-    embedded: "Embedded Systems & Real-Time Software Engineer",
-    enterprise: "Enterprise Systems & Automation Architect",
+    systems: "Hybrid Edge/Systems Engineer",
+    infrastructure: "Cloud Infrastructure Engineer / Platform Developer",
   ),
 
   summary: (
     general: [
       Software engineer with 5+ years of experience bridging hardware and full-stack development. I combine technical depth in C++ and Python with a rigorous, agentic engineering methodology. My focus is on resilient system design and productivity-enhancing AI workflows, governed by security, processes, and specification-driven development.
     ],
-    embedded: [
-      Rigorous Systems Engineer with 5+ years of experience engineering real-time, event-driven software architectures (C/C++, FreeRTOS) and secure, deterministic communication protocols. Specializes in designing robust firmware, high-performance IPC mechanisms, and hardware-in-the-loop simulation frameworks. Governed by strict Spec-Driven Development (SDD) methodologies and automated validation pipelines to eliminate runtime faults in production environments.
+    systems: [
+      Hybrid Edge/Systems Engineer with 5+ years of experience architecting end-to-end telemetry systems spanning edge compute to backend integration. Specializes in C/C++ and FreeRTOS for deterministic real-time scheduling, Python for automation and hardware-in-the-loop validation, and Elixir/OTP for distributed platform infrastructure.
     ],
-    enterprise: [
-      Strategic Enterprise Software Architect with 5+ years of experience engineering robust business automation platforms, custom ERP extensions, and scalable API layers. Expert in the Frappe/ERPNext ecosystem, asynchronous workflow systems, and cross-platform mobile application deployment (Expo/React Native). Proven track record of translating complex real-world operations into scalable, type-safe data schemas governed by strict Spec-Driven Development (SDD) paradigms.
+    infrastructure: [
+      Cloud Infrastructure Engineer / Platform Developer with 5+ years of experience designing high-availability infrastructure across Linux systems administration, Docker containerization, and Pulumi infrastructure-as-code. Proven track record in PostgreSQL performance tuning, multi-tenant data isolation, and building resilient automation and deployment pipelines.
     ],
   ),
 
@@ -287,6 +281,8 @@
   job_target: [
     Seeking a mid to senior software engineering role (remote preferred, hybrid max. 2 days/week on-site in Cape Town) with emphasis on embedded systems, backend services, or AI-assisted development workflows. Prefers small, focused teams with clear goals and engineering culture. Open to permanent or contract (3+ months) arrangements.
   ],
+
+  certification: "AWS Certified Solutions Architect – Associate (In Progress — Target: 6 Weeks)",
 
   experience: _experience_entries,
   education: _education_entries,

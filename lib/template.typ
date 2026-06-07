@@ -61,6 +61,7 @@
     variant,
   )
   let filtered_skills = skills.filter(cat => cat.variant == variant)
+  let certification = data.at("certification", default: none)
   let author = (
     firstname: firstname,
     lastname: lastname,
@@ -71,6 +72,7 @@
     website: data.at("website", default: ""),
     linkedin: data.at("linkedin", default: ""),
     positions: if position != none { (position,) } else { () },
+    certification: certification,
   )
 
   let cfg = resume.with(
@@ -89,7 +91,14 @@
       #v(0.3cm)
       #set text(size: 10pt)
       #summary
-      #v(0.3cm)
+      #v(0.1cm)
+    ]
+
+    #if filtered_skills.len() > 0 [
+      = Skills
+      #for cat in filtered_skills [
+        #resume-skill-item(cat.category_name, cat.skills.map(s => text(s)))
+      ]
     ]
 
     #if entries.len() > 0 [
@@ -110,13 +119,6 @@
             ]
           ]
         ]
-      ]
-    ]
-
-    #if filtered_skills.len() > 0 [
-      = Skills
-      #for cat in filtered_skills [
-        #resume-skill-item(cat.category_name, cat.skills.map(s => text(s)))
       ]
     ]
 

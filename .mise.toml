@@ -3,27 +3,27 @@ typst = "0.14.2"
 
 [tasks.build]
 description = "Compile all Typst documents to PDF"
-run = "typst compile --font-path fonts cv.typ W_Bisschoff_CV.pdf && typst compile --font-path fonts cv_embedded.typ W_Bisschoff_CV_embedded.pdf && typst compile --font-path fonts cv_enterprise.typ W_Bisschoff_CV_enterprise.pdf && typst compile --font-path fonts cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
+run = "typst compile --font-path fonts cv.typ W_Bisschoff_CV.pdf && typst compile --font-path fonts cv_systems.typ W_Bisschoff_CV_systems.pdf && typst compile --font-path fonts cv_infrastructure.typ W_Bisschoff_CV_infrastructure.pdf && typst compile --font-path fonts cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
 
 [tasks.build-cv]
 description = "Compile general CV only"
 run = "typst compile --font-path fonts cv.typ W_Bisschoff_CV.pdf"
 
-[tasks.build-embedded]
-description = "Compile embedded systems CV variant"
-run = "typst compile --font-path fonts cv_embedded.typ W_Bisschoff_CV_embedded.pdf"
+[tasks.build-systems]
+description = "Compile systems CV variant"
+run = "typst compile --font-path fonts cv_systems.typ W_Bisschoff_CV_systems.pdf"
 
-[tasks.build-enterprise]
-description = "Compile enterprise CV variant"
-run = "typst compile --font-path fonts cv_enterprise.typ W_Bisschoff_CV_enterprise.pdf"
+[tasks.build-infrastructure]
+description = "Compile infrastructure CV variant"
+run = "typst compile --font-path fonts cv_infrastructure.typ W_Bisschoff_CV_infrastructure.pdf"
 
 [tasks.build-cover-letter]
 description = "Compile cover letter"
 run = "typst compile --font-path fonts cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
 
 [tasks.build-check]
-description = "Validate all documents compile without errors (dry compile)"
-run = "typst compile --font-path fonts cv.typ W_Bisschoff_CV.pdf && typst compile --font-path fonts cv_embedded.typ W_Bisschoff_CV_embedded.pdf && typst compile --font-path fonts cv_enterprise.typ W_Bisschoff_CV_enterprise.pdf && typst compile --font-path fonts cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
+description = "Validate all documents compile without errors"
+run = "typst compile --font-path fonts cv.typ W_Bisschoff_CV.pdf && typst compile --font-path fonts cv_systems.typ W_Bisschoff_CV_systems.pdf && typst compile --font-path fonts cv_infrastructure.typ W_Bisschoff_CV_infrastructure.pdf && typst compile --font-path fonts cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
 
 [tasks.check]
 description = "Run all verification checks (compile)"
@@ -31,7 +31,7 @@ depends = ["check-compile"]
 
 [tasks.check-compile]
 description = "Verify all documents compile without errors"
-run = "typst compile --font-path fonts cv.typ W_Bisschoff_CV.pdf && typst compile --font-path fonts cv_embedded.typ W_Bisschoff_CV_embedded.pdf && typst compile --font-path fonts cv_enterprise.typ W_Bisschoff_CV_enterprise.pdf && typst compile --font-path fonts cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
+run = "typst compile --font-path fonts cv.typ W_Bisschoff_CV.pdf && typst compile --font-path fonts cv_systems.typ W_Bisschoff_CV_systems.pdf && typst compile --font-path fonts cv_infrastructure.typ W_Bisschoff_CV_infrastructure.pdf && typst compile --font-path fonts cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
 
 [tasks.lint]
 description = "Validate Typst syntax via compilation check"
@@ -41,17 +41,17 @@ run = "typst compile --font-path fonts cv.typ /dev/null && typst compile --font-
 description = "Watch and recompile general CV on changes"
 run = "typst watch --font-path fonts cv.typ W_Bisschoff_CV.pdf"
 
-[tasks.dev-embedded]
-description = "Watch and recompile embedded CV on changes"
-run = "typst watch --font-path fonts cv_embedded.typ W_Bisschoff_CV_embedded.pdf"
+[tasks.dev-systems]
+description = "Watch and recompile systems CV on changes"
+run = "typst watch --font-path fonts cv_systems.typ W_Bisschoff_CV_systems.pdf"
 
-[tasks.dev-enterprise]
-description = "Watch and recompile enterprise CV on changes"
-run = "typst watch --font-path fonts cv_enterprise.typ W_Bisschoff_CV_enterprise.pdf"
+[tasks.dev-infrastructure]
+description = "Watch and recompile infrastructure CV on changes"
+run = "typst watch --font-path fonts cv_infrastructure.typ W_Bisschoff_CV_infrastructure.pdf"
 
 [tasks.clean]
 description = "Remove generated PDF artifacts"
-run = "rm -f W_Bisschoff_CV.pdf W_Bisschoff_CV_embedded.pdf W_Bisschoff_CV_enterprise.pdf W_Bisschoff_Cover_Letter.pdf"
+run = "rm -f W_Bisschoff_CV.pdf W_Bisschoff_CV_systems.pdf W_Bisschoff_CV_infrastructure.pdf W_Bisschoff_Cover_Letter.pdf"
 
 [tasks.setup]
 description = "Verify mise toolchain and typst version"
