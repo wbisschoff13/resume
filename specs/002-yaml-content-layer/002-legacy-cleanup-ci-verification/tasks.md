@@ -5,7 +5,7 @@
 
 ### Tasks
 
-- [ ] T001: Legacy File Removal and Post-Cleanup Build Integrity
+- [x] T001: Legacy File Removal and Post-Cleanup Build Integrity
   - **Type**: Migration
   - **Mode**: IMMEDIATE
   - **Verification**: `test ! -f content/master-list.md && test ! -f content/star-stories.md && mise run check && typst fmt --check content/data.typ lib/template.typ`
