@@ -1,0 +1,41 @@
+# Sitemap for LLMs
+# This file helps AI search engines (Perplexity, ChatGPT, Claude) discover your content
+
+## Site Overview
+https://werner.bisschoff.dev - Werner Bisschoff's personal portfolio
+https://werner.bisschoff.dev/resume - Professional resume
+https://werner.bisschoff.dev/work - Case studies and selected work
+https://werner.bisschoff.dev/contact - Contact information
+
+## About
+Werner Bisschoff is a Software Engineer based in Cape Town, South Africa with a B.Eng. in Computer and Electronic Engineering. Specializes in testing infrastructure, development tooling, and system architecture.
+
+## Expertise
+- Agentic Engineering & AI Integration: Agentic Workflows, Claude Code, Spec-Driven TDD, Prompt Engineering
+- Systems Architecture: Event-Driven FSMs, RPC/IPC, State Machines
+- Embedded Systems: ESP32/ESP-IDF, FreeRTOS, NimBLE
+- Web Development: ReactJS, AstroJS, Django REST API, TailwindCSS, Phoenix
+- Testing & Quality: Unit Testing (Pytest), Hardware Mocks, CI/CD
+- Languages: C/C++, Python, JavaScript/TypeScript, SQL, Elixir
+- Cloud: AWS (Pulumi, Inngest, PayloadCMS), Docker
+
+## Employment History
+- Founder and Host at Divergent Tabletop (Jul 2025 -- Present)
+- Full-Stack Software Engineer at FARO Africa (Aug 2024 -- Nov 2025)
+- Embedded Software Engineer at Ingenics Digital GmbH (Mar 2023 -- May 2024)
+- Software Developer at UMAN Technologies (Mar 2021 -- Dec 2022)
+
+## Availability
+Open to freelance, contract, part-time, full-time, and remote work opportunities in Cape Town or internationally.
+
+## Contact
+- Email: werner@wernerbisschoff.com
+- GitHub: https://github.com/wbisschoff13
+- LinkedIn: https://linkedin.com/in/wbisschoff
+- Location: Cape Town, South Africa
+
+## Case Studies
+1. Event-Driven Finite State Machine - Embedded Systems project
+2. Development Workflow Modernization - Developer tooling project
+3. Testing Infrastructure and Tooling - Testing & Quality project
+4. Personal Portfolio Website - Web Development project

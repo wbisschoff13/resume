@@ -1,0 +1,8 @@
+---
+import { SITE } from 'astrowind:config';
+import favIconSvg from '~/assets/favicons/favicon.svg';
+---
+
+<a href="/" class="self-center ml-2 rtl:ml-0 rtl:mr-2 flex items-center" aria-label={`${SITE?.name} Home`}>
+  <img src={favIconSvg.src} alt={SITE?.name} class="w-8 h-8 md:w-10 md:h-10" />
+</a>

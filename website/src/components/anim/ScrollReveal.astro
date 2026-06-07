@@ -1,0 +1,197 @@
+---
+/**
+ * ScrollReveal Animation Component
+ *
+ * Reusable component for scroll-triggered fade-in animations.
+ * Elements animate when they enter the viewport using Motion One's inView.
+ *
+ * Features:
+ * - Fade in with slide animation (configurable direction)
+ * - Respects prefers-reduced-motion accessibility preference
+ * - Configurable duration, delay, and easing
+ * - Uses CSS animation tokens from Task 12
+ *
+ * PRD Reference: FR-007
+ * Task Reference: TM-014
+ */
+
+export interface Props {
+  /**
+   * Animation duration in seconds (default: 0.5)
+   * Uses --anim-duration-base token by default
+   */
+  duration?: number;
+
+  /**
+   * Animation delay in seconds (default: 0)
+   * Uses --anim-delay-* tokens
+   */
+  delay?: number;
+
+  /**
+   * Direction of slide animation (default: 'up')
+   * Options: 'up', 'down', 'left', 'right', 'none'
+   */
+  direction?: 'up' | 'down' | 'left' | 'right' | 'none';
+
+  /**
+   * Easing function (default: 'out')
+   * Options: 'linear', 'in', 'out', 'in-out', 'spring', 'bounce'
+   * Uses --anim-ease-* tokens
+   */
+  easing?: 'linear' | 'in' | 'out' | 'in-out' | 'spring' | 'bounce';
+
+  /**
+   * CSS class name for the wrapper element
+   */
+  class?: string;
+}
+
+const { duration = 0.5, delay = 0, direction = 'up', easing = 'out', class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={['scroll-reveal', className]}
+  style={`--anim-duration: ${duration}s; --anim-delay: ${delay}s;`}
+  data-direction={direction}
+  data-easing={easing}
+  data-duration={String(duration)}
+  data-delay={String(delay)}
+>
+  <slot />
+</div>
+
+<script>
+  import { inView } from 'motion';
+  import { shouldAnimate } from '~/utils/a11y';
+
+  // Get easing function - Web Animations API requires actual values, not CSS variables
+  const getEasing = (easingType: string): string => {
+    const easingMap: Record<string, string> = {
+      linear: 'linear',
+      in: 'cubic-bezier(0.4, 0, 1, 1)',
+      out: 'cubic-bezier(0, 0, 0.2, 1)',
+      'in-out': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      spring: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+      bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+    };
+    return easingMap[easingType] || easingMap['out'];
+  };
+
+  // Generate transform based on direction
+  const getTransform = (dir: string): string => {
+    const distance = '20px';
+    switch (dir) {
+      case 'up':
+        return `translateY(${distance})`;
+      case 'down':
+        return `translateY(-${distance})`;
+      case 'left':
+        return `translateX(${distance})`;
+      case 'right':
+        return `translateX(-${distance})`;
+      case 'none':
+        return 'none';
+      default:
+        return `translateY(${distance})`;
+    }
+  };
+
+  // Initialize animations when component loads
+  const initScrollReveal = () => {
+    document.querySelectorAll('.scroll-reveal').forEach((element) => {
+      if (!(element instanceof HTMLElement)) return;
+
+      // Skip if already initialized
+      if (element.dataset.initialized === 'true') return;
+
+      // Mark as initialized to prevent duplicate handlers
+      element.dataset.initialized = 'true';
+
+      // Get animation parameters from data attributes
+      const duration = parseFloat(element.dataset.duration || '0.5');
+      const delay = parseFloat(element.dataset.delay || '0');
+      const direction = element.dataset.direction || 'up';
+      const easing = element.dataset.easing || 'out';
+
+      // Check if user prefers reduced motion
+      if (!shouldAnimate()) {
+        // Apply final state immediately without animation
+        element.style.opacity = '1';
+        element.style.transform = 'none';
+        element.dataset.animated = 'true';
+        return;
+      }
+
+      // Animation function
+      const animateElement = () => {
+        // Skip if already animated
+        if (element.dataset.animated === 'true') return;
+
+        // Use native Web Animations API with easing
+        const animation = element.animate(
+          [
+            {
+              opacity: 0,
+              transform: getTransform(direction),
+            },
+            {
+              opacity: 1,
+              transform: 'none',
+            },
+          ],
+          {
+            duration: duration * 1000,
+            delay: delay * 1000,
+            easing: getEasing(easing),
+            fill: 'forwards',
+          }
+        );
+
+        // Set animated flag after animation completes
+        animation.addEventListener('finish', () => {
+          element.dataset.animated = 'true';
+          // Ensure final styles are applied
+          element.style.opacity = '1';
+          element.style.transform = 'none';
+        });
+      };
+
+      // Use inView to trigger animation when element enters viewport
+      inView(element, animateElement);
+    });
+  };
+
+  // Initialize on next tick to ensure DOM is ready
+  requestAnimationFrame(() => {
+    initScrollReveal();
+  });
+
+  // Re-initialize after Astro view transitions
+  document.addEventListener('astro:after-swap', () => {
+    requestAnimationFrame(() => {
+      initScrollReveal();
+    });
+  });
+</script>
+
+<style>
+  /* Base styles for scroll reveal component */
+  .scroll-reveal {
+    /* Initially hidden - will be revealed by JavaScript */
+    opacity: 0;
+  }
+
+  /* After animation completes */
+  .scroll-reveal[data-animated='true'] {
+    opacity: 1;
+  }
+
+  /* Respect prefers-reduced-motion at CSS level too */
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-reveal {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>

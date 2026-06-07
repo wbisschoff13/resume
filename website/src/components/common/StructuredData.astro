@@ -1,0 +1,29 @@
+---
+/**
+ * JSON-LD Structured Data Component
+ *
+ * Adds Schema.org Person markup for SEO rich results.
+ * Helps search engines understand the entity behind the website.
+ */
+
+import { SITE } from 'astrowind:config';
+import { CONTACT_INFO } from '~/config/contact';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE?.name || 'Werner Bisschoff',
+  url: SITE?.site || 'https://werner.bisschoff.dev',
+  jobTitle: 'Software Engineer',
+  email: CONTACT_INFO.email,
+  image: `${SITE?.site || 'https://werner.bisschoff.dev'}/images/werner-bisschoff-software-engineer.webp`,
+  sameAs: [CONTACT_INFO.social.github.url, CONTACT_INFO.social.linkedin.url],
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Independent',
+  },
+  description: SITE?.metadata?.description || 'I build the foundations teams need to ship reliable software fast.',
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

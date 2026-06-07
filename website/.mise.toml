@@ -1,0 +1,41 @@
+[tools]
+node = "22.13.0"
+opentofu = "1.11.5"
+
+[tasks]
+# === Dependency Management ===
+setup = "pnpm install"
+
+# === Git Hooks ===
+hooks = { description = "Install git hooks", run = "if [ -d .githooks ]; then cp .githooks/pre-commit .git/hooks/pre-commit 2>/dev/null || true; cp .githooks/pre-push .git/hooks/pre-push 2>/dev/null || true; chmod +x .git/hooks/pre-commit 2>/dev/null || true; chmod +x .git/hooks/pre-push 2>/dev/null || true; echo '✅ Git hooks installed'; else echo '⚠️  No .githooks/ directory found'; exit 1; fi" }
+uninstall-hooks = { description = "Remove git hooks", run = "rm -f .git/hooks/pre-commit .git/hooks/pre-push && echo '✅ Git hooks removed'" }
+
+# === Validation ===
+check = "pnpm check"
+check-astro = "pnpm check:astro"
+check-eslint = "pnpm check:eslint"
+check-prettier = "pnpm check:prettier"
+lint = "pnpm check:eslint"
+
+# === Auto-Fix ===
+format = "pnpm fix:prettier"
+fix = "pnpm fix"
+fix-eslint = "pnpm fix:eslint"
+fix-prettier = "pnpm fix:prettier"
+
+# === Build & Development ===
+build = "pnpm build"
+build-check = "pnpm build"
+dev = "pnpm astro dev --host 0.0.0.0"
+preview = "pnpm preview"
+
+# === Utility ===
+clean = "rm -rf dist .astro"
+
+# === Terraform Infrastructure ===
+terraform-init = { description = "Initialize OpenTofu with R2 backend", dir = "terraform", run = ". .env && tofu init" }
+terraform-plan = { description = "Show OpenTofu execution plan", dir = "terraform", run = ". .env && tofu plan" }
+terraform-apply = { description = "Apply OpenTofu changes", dir = "terraform", run = ". .env && tofu apply" }
+terraform-validate = { description = "Validate OpenTofu configuration", dir = "terraform", run = "tofu validate" }
+terraform-destroy = { description = "Destroy OpenTofu-managed infrastructure", dir = "terraform", run = ". .env && tofu destroy" }
+terraform-output = { description = "Show OpenTofu outputs", dir = "terraform", run = ". .env && tofu output" }

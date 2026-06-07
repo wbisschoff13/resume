@@ -1,0 +1,23 @@
+---
+import Item from '~/components/blog/ListItem.astro';
+import ScrollReveal from '~/components/anim/ScrollReveal.astro';
+import type { Post } from '~/types';
+
+export interface Props {
+  posts: Array<Post>;
+}
+
+const { posts } = Astro.props;
+---
+
+<ul>
+  {
+    posts.map((post, index) => (
+      <li class="mb-12 md:mb-20">
+        <ScrollReveal direction="up" delay={index * 0.05} duration={0.6}>
+          <Item post={post} />
+        </ScrollReveal>
+      </li>
+    ))
+  }
+</ul>

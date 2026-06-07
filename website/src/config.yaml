@@ -1,0 +1,74 @@
+site:
+  name: Werner Bisschoff
+  site: 'https://werner.bisschoff.dev'
+  base: '/'
+  trailingSlash: false
+
+  googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
+
+# Default SEO metadata
+metadata:
+  title:
+    default: Werner Bisschoff — Software Engineer
+    template: '%s — Werner Bisschoff'
+  description: 'Software Engineer based in Cape Town, South Africa. I build the foundations teams need to ship reliable software fast. Specializing in testing infrastructure, development tooling, and system architecture.'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Werner Bisschoff
+    images:
+      - url: '/images/werner-bisschoff-software-engineer.webp'
+        width: 1200
+        height: 1200
+        alt: 'Werner Bisschoff - Software Engineer'
+    type: website
+  twitter:
+    handle: '@wbisschoff13'
+    site: '@wbisschoff13'
+    cardType: summary_large_image
+
+i18n:
+  language: en
+  textDirection: ltr
+
+apps:
+  blog:
+    isEnabled: true
+    postsPerPage: 6
+
+    post:
+      isEnabled: true
+      permalink: '/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      robots:
+        index: true
+
+    list:
+      isEnabled: true
+      pathname: 'notes' # Notes main path
+      robots:
+        index: true
+
+    category:
+      isEnabled: true
+      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
+      robots:
+        index: true
+
+    tag:
+      isEnabled: true
+      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
+      robots:
+        index: false
+
+    isRelatedPostsEnabled: false
+    relatedPostsCount: 4
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: G-3Y4G3T4PXC # Add your GA4 Measurement ID (e.g., "G-XXXXXXXXXX")
+      partytown: true # Offload GA4 script to web worker for better performance
+
+ui:
+  theme: 'dark:only' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"

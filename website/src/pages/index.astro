@@ -1,0 +1,455 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import ScrollReveal from '~/components/anim/ScrollReveal.astro';
+import InteractiveElement from '~/components/anim/InteractiveElement.astro';
+import Image from '~/components/common/Image.astro';
+import portraitImage from '~/assets/images/werner-bisschoff-software-engineer.webp';
+import { getPersonSchema, getWebSiteSchema, getFaqSchema } from '~/utils/structured-data';
+
+const metadata = {
+  title: 'Werner Bisschoff — Software Engineer',
+  description:
+    'Spec-first engineering with AI-augmented workflows. Software engineer bridging embedded systems and full-stack development.',
+  ignoreTitleTemplate: true,
+};
+
+const personSchema = getPersonSchema();
+const websiteSchema = getWebSiteSchema();
+const faqSchema = getFaqSchema();
+---
+
+<Layout metadata={metadata}>
+  <!-- Person JSON-LD structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  <!-- WebSite JSON-LD structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  <!-- FAQPage JSON-LD structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <!-- Hero Section -->
+  <section
+    class="relative min-h-[90vh] flex items-center px-4 sm:px-6 lg:px-8 pt-16 pb-16 border-b border-border/[0.06]"
+  >
+    <!-- Refined background with gold glow -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <!-- Primary gold glow - top right -->
+      <div
+        class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/[0.08] rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4"
+      >
+      </div>
+      <!-- Secondary subtle glow - bottom left -->
+      <div
+        class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/[0.04] rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4"
+      >
+      </div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto w-full">
+      <!-- Grid Layout: 2 rows, 2 columns on desktop -->
+      <div class="grid grid-cols-1 lg:grid-cols-[3fr,2fr] gap-y-12 gap-x-8 lg:items-center">
+        <!-- Top Left: Title (auto-positions to row 1, col 1) -->
+        <div class="text-center lg:text-left hero-entrance" style="--delay: 0ms">
+          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-text-heading leading-[1.1]">
+            Spec-first engineering with
+            <span class="text-primary block mt-1">AI-augmented workflows.</span>
+            Built to last.
+          </h1>
+        </div>
+
+        <!-- Top Right: Portrait (auto-positions to row 1, col 2) -->
+        <div class="relative flex justify-center lg:justify-end hero-entrance" style="--delay: 200ms">
+          <div class="relative group">
+            <!-- Multi-layer glow effect behind portrait -->
+            <div
+              class="absolute inset-0 bg-primary/25 rounded-full blur-[80px] scale-95 group-hover:scale-100 transition-transform duration-700"
+            >
+            </div>
+            <div class="absolute inset-0 bg-primary/15 rounded-full blur-[50px] scale-90"></div>
+            <!-- Portrait image -->
+            <!--
+              OPTIMIZED IMAGE LOADING
+              - Uses base64 placeholder for blur-up effect (LQIP)
+              - Responsive srcset: [320, 384, 512, 640, 768, 896]px
+              - Eager loading + fetchpriority="high" for LCP optimization
+              - WebP format conversion (automatic via build pipeline)
+
+              If portrait image changes, regenerate base64 placeholder:
+              1. sips -Z 20 src/assets/images/werner-bisschoff-software-engineer.jpeg --out src/assets/images/werner-bisschoff-software-engineer-tiny.jpeg
+              2. base64 -i src/assets/images/werner-bisschoff-software-engineer-tiny.jpeg
+              3. Add "data:image/jpeg;base64," prefix to output
+            -->
+            <Image
+              src={portraitImage}
+              alt="Werner Bisschoff"
+              background="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAFKADAAQAAAABAAAADwAAAAD/7QA4UGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAAA4QklNBCUAAAAAABDUHYzZjwCyBOmACZjs+EJ+/8IAEQgADwAUAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAMCBAEFAAYHCAkKC//EAMMQAAEDAwIEAwQGBAcGBAgGcwECAAMRBBIhBTETIhAGQVEyFGFxIweBIJFCFaFSM7EkYjAWwXLRQ5I0ggjhU0AlYxc18JNzolBEsoPxJlQ2ZJR0wmDShKMYcOInRTdls1V1pJXDhfLTRnaA40dWZrQJChkaKCkqODk6SElKV1hZWmdoaWp3eHl6hoeIiYqQlpeYmZqgpaanqKmqsLW2t7i5usDExcbHyMnK0NTV1tfY2drg5OXm5+jp6vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAQIAAwQFBgcICQoL/8QAwxEAAgIBAwMDAgMFAgUCBASHAQACEQMQEiEEIDFBEwUwIjJRFEAGMyNhQhVxUjSBUCSRoUOxFgdiNVPw0SVgwUThcvEXgmM2cCZFVJInotIICQoYGRooKSo3ODk6RkdISUpVVldYWVpkZWZnaGlqc3R1dnd4eXqAg4SFhoeIiYqQk5SVlpeYmZqgo6SlpqeoqaqwsrO0tba3uLm6wMLDxMXGx8jJytDT1NXW19jZ2uDi4+Tl5ufo6ery8/T19vf4+fr/2wBDAAICAgICAgMCAgMFAwMDBQYFBQUFBggGBgYGBggKCAgICAgICgoKCgoKCgoMDAwMDAwODg4ODg8PDw8PDw8PDw//2wBDAQICAgQEBAcEBAcQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/2gAMAwEAAhEDEQAAAfgn27gftLm7fgQH0VW5D//aAAgBAQABBQKPjvmzW+2ORPXYWUU67Wz2bcdsu7Xw2qf/2gAIAQMRAT8BwYhKNeqeiP5v/9oACAECEQE/Aeoz+2N/oGPygIsQP+8f53//2gAIAQEABj8CdubVSloliQtWXkVdrFKx/jE2B+WjuU3cXNXYr5ZOoyHl/C1CO1ICdNFF/wD/xAAzEAEAAwACAgICAgMBAQAAAgsBEQAhMUFRYXGBkaGxwfDREOHxIDBAUGBwgJCgsMDQ4P/aAAgBAQABPyEkZynQg0BKoZ5DKQopAPzEh/di8w3AZTEaEPqoZDgePu//2gAMAwEAAhEDEQAAEAof/8QAMxEBAQEAAwABAgUFAQEAAQEJAQARITEQQVFhIHHwkYGhsdHB4fEwQFBgcICQoLDA0OD/2gAIAQMRAT8QdfMmfzHUT/X/ABf/2gAIAQIRAT8QfZ0Kn2OYtkvPxP/aAAgBAQABPxBoOCxPioZ6HbENgYh2KW8LFYLJKQAYZN6U+k59i2f0GAi5k/R15MKe+b//2Q=="
+              widths={[320, 384, 512, 640, 768, 896]}
+              width={384}
+              sizes="(max-width: 640px) 320px, 384px"
+              aspectRatio="1:1"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 object-cover rounded-sm shadow-2xl shadow-primary/20 border border-primary/40 group-hover:border-primary/60 transition-colors duration-500"
+            />
+          </div>
+        </div>
+
+        <!-- Bottom: Badge, Tagline and CTAs -->
+        <div class="text-center lg:col-span-2 hero-entrance" style="--delay: 400ms">
+          <!-- B.Eng. qualification badge -->
+          <div
+            class="inline-flex items-center gap-3 px-5 py-2.5 bg-primary/[0.08] border border-primary/[0.15] rounded-sm mb-6"
+          >
+            <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+              ></path>
+            </svg>
+            <span class="text-sm font-mono font-medium text-primary tracking-wide">
+              B.Eng. Computer and Electronic Engineering
+            </span>
+          </div>
+
+          <!-- Location -->
+          <p class="text-xs text-text-muted/60 max-w-3xl mx-auto mb-4 font-mono tracking-wider uppercase">
+            Cape Town, South Africa
+          </p>
+
+          <!-- Tagline with technical focus -->
+          <p class="text-lg sm:text-xl text-text-muted max-w-3xl mx-auto mb-8 font-mono leading-relaxed tracking-wide">
+            <span class="text-primary">&gt;</span> Spec-Driven Development
+            <span class="text-text-muted/40 mx-2">|</span>
+            AI-Augmented Workflows
+            <span class="text-text-muted/40 mx-2">|</span>
+            Resilient Systems
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <InteractiveElement class="self-center" tag="a" href="/contact" hoverScale={1.03} activeScale={0.98}>
+              <span
+                class="group relative inline-flex items-center gap-2.5 px-7 py-3.5 bg-primary text-primary-content font-semibold text-sm tracking-wide rounded-sm overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/30"
+              >
+                Get in Touch
+                <svg
+                  class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </span>
+            </InteractiveElement>
+
+            <InteractiveElement class="self-center" tag="a" href="/work" hoverScale={1.02} activeScale={0.98}>
+              <span
+                class="inline-block px-7 py-3.5 border border-border hover:border-primary/60 text-text-default hover:text-primary font-semibold text-sm tracking-wide rounded-sm transition-all duration-300 hover:bg-primary/5"
+              >
+                View My Work
+              </span>
+            </InteractiveElement>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LLM Workflow Section -->
+  <section class="relative py-24 px-4 sm:px-6 lg:px-8 bg-bg-element/50">
+    <ScrollReveal direction="up" delay={0.1} duration={0.6}>
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+          <span
+            class="inline-block px-4 py-2 bg-primary/10 text-primary text-sm font-mono font-semibold rounded-sm mb-6"
+          >
+            AI-AGENTIC WORKFLOWS
+          </span>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-text-heading mb-6">
+            Spec-first. Tested. No surprises.
+          </h2>
+          <p class="text-lg text-text-muted max-w-2xl mx-auto">
+            I treat AI as a partner. I over-invest in specs for context and verify outputs through human-led testing.
+            Discipline over vibes.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <ScrollReveal direction="up" delay={0.15} duration={0.6}>
+            <div
+              class="group flex flex-col h-full p-6 bg-bg-page border border-border/10 rounded-sm hover:border-primary/50 transition-all duration-300"
+            >
+              <div
+                class="w-12 h-12 bg-primary/10 rounded-sm flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-text-heading mb-2">Spec-Driven</h3>
+              <p class="text-text-muted">
+                Context is king. I over-invest in specifications before any code. Errors in specs cascade through
+                implementation.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <!-- Card 2 -->
+          <ScrollReveal direction="up" delay={0.2} duration={0.6}>
+            <div
+              class="group flex flex-col h-full p-6 bg-bg-page border border-border/10 rounded-sm hover:border-primary/50 transition-all duration-300"
+            >
+              <div
+                class="w-12 h-12 bg-primary/10 rounded-sm flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-text-heading mb-2">AI-Generated</h3>
+              <p class="text-text-muted">
+                LLMs accelerate boilerplate and exploration. I verify against specs so outputs are hypotheses, not
+                assumptions.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <!-- Card 3 -->
+          <ScrollReveal direction="up" delay={0.25} duration={0.6}>
+            <div
+              class="group flex flex-col h-full p-6 bg-bg-page border border-border/10 rounded-sm hover:border-primary/50 transition-all duration-300"
+            >
+              <div
+                class="w-12 h-12 bg-primary/10 rounded-sm flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-text-heading mb-2">TDD-Verified</h3>
+              <p class="text-text-muted">
+                Models miss edge cases. TDD loops ensure AI outputs meet requirements. Human expertise guides
+                verification.
+              </p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </div>
+    </ScrollReveal>
+  </section>
+
+  <!-- About / Positioning Section -->
+  <section class="relative py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Who I Am -->
+      <div class="text-center mb-16">
+        <ScrollReveal direction="up" delay={0.2} duration={0.6}>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-heading mb-8">Software Engineer</h2>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0.3} duration={0.6}>
+          <div class="prose prose-lg max-w-none mx-auto">
+            <p class="text-xl text-text-muted leading-relaxed mb-6">
+              I bridge the gap between hardware and cloud. From designing event-driven C++ firmware for embedded systems
+              to building ERPNext workflows with Python and SQL. My impact includes cutting firmware bugs through robust
+              FSM architectures and accelerating team iteration via AI-agentic workflows.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0.4} duration={0.6}>
+          <div class="prose prose-lg max-w-none mx-auto">
+            <p class="text-text-muted text-lg leading-relaxed mb-6">
+              I'm unique for my ability to link low-level hardware (NFC, BLE) to high-level applications, driven by a
+              deep curiosity for how systems function from the metal up. I treat AI as a partner, not a replacement. I
+              use spec-driven development and TDD to eliminate vibe-coding and deliver tested, reliable code.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0.5} duration={0.6}>
+          <div class="prose prose-lg max-w-none mx-auto">
+            <p class="text-text-muted text-lg leading-relaxed">
+              My methodology: over-invest in specs for context, let AI generate, verify through human-led testing. Specs
+              first. Tested code. No surprises.
+            </p>
+          </div>
+        </ScrollReveal>
+      </div>
+
+      <!-- My Approach -->
+      <div class="grid sm:grid-cols-2 gap-6 text-left mb-16">
+        <ScrollReveal direction="up" delay={0.6} duration={0.6}>
+          <div class="p-6 border-l-2 border-primary bg-bg-element/30">
+            <h3 class="text-lg font-semibold text-text-heading mb-3">
+              <span class="text-primary font-mono">01.</span> Spec-First
+            </h3>
+            <p class="text-text-muted">
+              Context is king. I over-invest in specifications before any code is written. Errors in specs cascade
+              through implementation.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0.65} duration={0.6}>
+          <div class="p-6 border-l-2 border-primary bg-bg-element/30">
+            <h3 class="text-lg font-semibold text-text-heading mb-3">
+              <span class="text-primary font-mono">02.</span> AI as Partner
+            </h3>
+            <p class="text-text-muted">
+              LLMs accelerate exploration and boilerplate generation. I craft production-ready systems with engineering
+              judgment guiding every path choice.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0.7} duration={0.6}>
+          <div class="p-6 border-l-2 border-primary bg-bg-element/30">
+            <h3 class="text-lg font-semibold text-text-heading mb-3">
+              <span class="text-primary font-mono">03.</span> Human-Verified
+            </h3>
+            <p class="text-text-muted">
+              Models miss edge cases. TDD and human-led testing ensure AI outputs are hypotheses verified against real
+              requirements.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0.75} duration={0.6}>
+          <div class="p-6 border-l-2 border-primary bg-bg-element/30">
+            <h3 class="text-lg font-semibold text-text-heading mb-3">
+              <span class="text-primary font-mono">04.</span> Resilient by Design
+            </h3>
+            <p class="text-text-muted">
+              From FSMs that handle edge cases to tested workflows. Systems built to function when things get complex,
+              not just when they work.
+            </p>
+          </div>
+        </ScrollReveal>
+      </div>
+
+      <!-- Background -->
+      <ScrollReveal direction="up" delay={0.8} duration={0.6}>
+        <div class="max-w-3xl mx-auto">
+          <h3 class="text-2xl font-bold text-text-heading mb-6 text-center">Background</h3>
+          <div class="prose prose-lg max-w-none">
+            <p class="text-text-muted text-lg leading-relaxed mb-6">
+              B.Eng. Computer and Electronic Engineering from North-West University (2020). 5+ years bridging embedded
+              systems and full-stack development across industries. Automotive Ethernet at UMAN Technologies. Consumer
+              electronics firmware at Ingenics/ViVa. Enterprise ERPNext at FARO Africa.
+            </p>
+            <p class="text-text-muted text-lg leading-relaxed">
+              Currently building Divergent Tabletop, a neurodivergent-focused peer community. Applying systems thinking
+              to solve community management challenges through automated software solutions. Always refining my TDD
+              loops for more hands-free workflows while maintaining architectural control.
+            </p>
+          </div>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+</Layout>
+
+<!-- Final CTA Section -->
+<section class="relative py-24 px-4 sm:px-6 lg:px-8 bg-bg-element/50">
+  <ScrollReveal direction="up" delay={0.3} duration={0.6}>
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-text-heading mb-6">Ready to build something reliable?</h2>
+      <p class="text-xl text-text-muted mb-12">Let's discuss how I can help strengthen your engineering foundations.</p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/contact"
+          class="px-8 py-4 bg-primary text-primary-content font-semibold rounded-sm hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 hover:scale-105"
+        >
+          Start a Conversation
+        </a>
+
+        <a
+          href="/work"
+          class="px-8 py-4 border-2 border-border hover:border-primary text-text-default hover:text-primary font-semibold rounded-sm transition-all duration-300"
+        >
+          See Case Studies
+        </a>
+      </div>
+    </div>
+  </ScrollReveal>
+</section>
+
+<style>
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Hero entrance animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .hero-entrance {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  .hero-entrance:nth-child(2) {
+    animation-name: fadeInRight;
+  }
+
+  /* Respect prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-entrance {
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>

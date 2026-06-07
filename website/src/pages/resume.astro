@@ -1,0 +1,277 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import ScrollReveal from '~/components/anim/ScrollReveal.astro';
+import fs from 'node:fs';
+import yaml from 'js-yaml';
+
+const metadata = {
+  title: 'Resume — Werner Bisschoff',
+  description:
+    'Professional resume showcasing experience in systems architecture, testing infrastructure, and development tooling. Open to freelance, contract, part-time, full-time, and remote work in Cape Town.',
+};
+
+// Load canonical YAML data
+const config = yaml.load(fs.readFileSync('../content/config.yaml', 'utf-8'));
+const experiences = yaml.load(fs.readFileSync('../content/experience.yaml', 'utf-8'));
+const skillsData = yaml.load(fs.readFileSync('../content/skills.yaml', 'utf-8'));
+const educationData = yaml.load(fs.readFileSync('../content/education.yaml', 'utf-8'));
+
+interface Bullet {
+  text: string;
+  variant: string;
+  cv_priority: number;
+  website_show: boolean;
+  star_ref: number | null;
+}
+
+interface ExperienceEntry {
+  company: string;
+  location: string;
+  role: Record<string, string>;
+  start_date: string;
+  end_date: string | null;
+  bullets: Bullet[];
+}
+
+interface SkillCategory {
+  category: string;
+  items: string[];
+  variant: string;
+}
+
+interface EducationEntry {
+  institution: string;
+  degree: string;
+  start_date: string;
+  end_date: string;
+}
+
+// Build experience list: general variant bullets, filtered by website_show
+const websiteExperiences = (experiences as ExperienceEntry[]).map((exp) => {
+  const title = exp.role?.general || Object.values(exp.role)[0];
+  const period = `${exp.start_date} — ${exp.end_date || 'Present'}`;
+  const bullets = exp.bullets
+    .filter((b) => b.variant === 'general' && b.website_show !== false)
+    .sort((a, b) => a.cv_priority - b.cv_priority);
+
+  // Fallback: show all website_show bullets if no general variant
+  const description = bullets.length > 0
+    ? bullets.map((b) => b.text)
+    : exp.bullets
+      .filter((b) => b.website_show !== false)
+      .sort((a, b) => a.cv_priority - b.cv_priority)
+      .map((b) => b.text);
+
+  return { title, company: exp.company, period, description };
+});
+
+// Build skill categories (general variant)
+const websiteSkills = (skillsData as SkillCategory[])
+  .filter((s) => s.variant === 'general')
+  .map((s) => ({ category: s.category, skills: s.items }));
+
+// Education
+const edu = (educationData as EducationEntry[])[0];
+const name = config?.name || 'Werner Bisschoff';
+const titleText = config?.title?.general || 'Software Engineer';
+---
+
+<Layout metadata={metadata}>
+  <div class="resume-container">
+    <!-- Header -->
+    <section class="no-print relative py-12 px-4 sm:px-6 lg:px-8 border-b border-border/[0.06]">
+      <ScrollReveal direction="up" delay={0} duration={0.6}>
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <span
+              class="inline-block px-4 py-2 bg-primary/[0.08] text-primary text-xs font-mono font-semibold tracking-wider rounded-sm mb-4"
+            >
+              RESUME
+            </span>
+            <h1 class="text-4xl sm:text-5xl font-heading font-bold text-text-heading mb-2">{name}</h1>
+            <p class="text-lg text-text-muted">{titleText}</p>
+          </div>
+          <a
+            href="/W_Bisschoff_CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-6 py-3 bg-primary text-primary-content font-semibold text-sm tracking-wide rounded-sm hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:scale-[1.02]"
+          >
+            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            Download PDF
+          </a>
+        </div>
+      </ScrollReveal>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Education Section -->
+      <section class="mb-16">
+        <ScrollReveal direction="up" delay={0.1} duration={0.6}>
+          <h2 class="text-2xl font-heading font-bold text-text-heading mb-6 pb-2 border-b-2 border-primary">
+            Education
+          </h2>
+          <div class="p-6 bg-bg-element/30 border-l-4 border-primary">
+            <h3 class="text-xl font-heading font-semibold text-text-heading mb-2">
+              {edu?.degree || 'B.Eng. Computer and Electronic Engineering'}
+            </h3>
+            <p class="text-text-muted mb-3">{edu?.institution || 'North-West University, Potchefstroom'}</p>
+            <p class="text-sm text-text-muted font-mono tracking-wide">{edu?.end_date || '2020'}</p>
+          </div>
+        </ScrollReveal>
+      </section>
+
+      <!-- Experience Section -->
+      <section class="mb-16">
+        <ScrollReveal direction="up" delay={0.2} duration={0.6}>
+          <h2 class="text-2xl font-heading font-bold text-text-heading mb-6 pb-2 border-b-2 border-primary">
+            Experience
+          </h2>
+
+          <div class="relative border-l-2 border-border/[0.15]">
+            {
+              websiteExperiences.map((exp, index) => (
+                <ScrollReveal direction="up" delay={0.2 + index * 0.1} duration={0.6}>
+                  <div class="relative pl-6 mb-12 last:mb-0 pb-12 last:pb-0">
+                    {/* Timeline dot */}
+                    <div class="absolute -left-[9px] top-4 w-[18px] h-[18px] bg-primary rounded-full border-4 border-bg-page" />
+
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+                      <div>
+                        <h3 class="text-xl font-heading font-semibold text-text-heading">{exp.title}</h3>
+                        <p class="text-primary font-medium">{exp.company}</p>
+                      </div>
+                      <span class="text-sm text-text-muted font-mono tracking-wide mt-1 sm:mt-0">{exp.period}</span>
+                    </div>
+
+                    <ul class="space-y-2 my-4">
+                      {exp.description.map((item) => (
+                        <li class="flex items-start text-text-muted">
+                          <span class="text-primary mr-2 mt-1">→</span>
+                          <span class="leading-relaxed">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </ScrollReveal>
+              ))
+            }
+          </div>
+        </ScrollReveal>
+      </section>
+
+      <!-- Skills Section -->
+      <section>
+        <ScrollReveal direction="up" delay={0.3} duration={0.6}>
+          <h2 class="text-2xl font-heading font-bold text-text-heading mb-6 pb-2 border-b-2 border-primary">
+            Technical Skills
+          </h2>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            {
+              websiteSkills.map((cat, index) => (
+                <ScrollReveal direction="up" delay={0.3 + index * 0.08} duration={0.6}>
+                  <div class="p-5 bg-bg-element/30 border border-border/[0.06] rounded-sm h-full">
+                    <h3 class="text-base font-semibold text-text-heading mb-4 tracking-wide">{cat.category}</h3>
+                    <div class="flex flex-wrap gap-2">
+                      {cat.skills.map((skill) => (
+                        <span class="px-2.5 py-1 bg-bg-page border border-border/[0.08] text-sm text-text-muted/80 rounded">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))
+            }
+          </div>
+        </ScrollReveal>
+      </section>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  /* Print-friendly styles */
+  @media print {
+    .no-print,
+    header,
+    footer,
+    button {
+      display: none !important;
+    }
+
+    body {
+      background: white !important;
+      color: black !important;
+      font-size: 11pt;
+      line-height: 1.4;
+    }
+
+    .resume-container {
+      max-width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    * {
+      color: black !important;
+    }
+
+    section,
+    div {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    h2 {
+      border-bottom: 2pt solid black !important;
+      margin-top: 20pt !important;
+      margin-bottom: 10pt !important;
+      padding-bottom: 5pt !important;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      page-break-after: avoid;
+    }
+
+    .space-y-8 > div {
+      page-break-inside: avoid;
+    }
+
+    * {
+      transition: none !important;
+      animation: none !important;
+    }
+
+    a {
+      text-decoration: underline;
+      color: black !important;
+    }
+
+    a[href]:after {
+      content: ' (' attr(href) ')';
+      font-size: 0.8em;
+    }
+
+    a[href^='/']:after,
+    a[href^='#']:after {
+      content: '';
+    }
+  }
+
+  @media screen {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+</style>

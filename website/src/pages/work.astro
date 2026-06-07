@@ -1,0 +1,341 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import ScrollReveal from '~/components/anim/ScrollReveal.astro';
+import InteractiveElement from '~/components/anim/InteractiveElement.astro';
+import fs from 'node:fs';
+import yaml from 'js-yaml';
+
+const metadata = {
+  title: 'Work — Werner Bisschoff',
+  description: 'Case studies showcasing engineering projects.',
+};
+
+// Load canonical data from YAML
+const starStories = yaml.load(fs.readFileSync('../content/star-stories.yaml', 'utf-8'));
+
+interface StarStory {
+  id: string;
+  situation: string;
+  task: string;
+  action: string;
+  result: string;
+  metrics?: string[];
+}
+
+interface CaseStudy {
+  id: string;
+  title: string;
+  category: string;
+  problem: string;
+  constraints: string[];
+  solution: string;
+  outcome: string[];
+  tech: string[];
+}
+
+interface FeaturedMapping {
+  starId: string;
+  title: string;
+  category: string;
+  tech: string[];
+  constraints: string[];
+}
+
+// Curated selection of STAR stories to feature as case studies
+const featuredMappings: FeaturedMapping[] = [
+  {
+    starId: 'some-ip-performance-investigation',
+    title: 'SOME/IP Performance Investigation',
+    category: 'Systems Performance',
+    tech: ['C++', 'SOME/IP', 'perf', 'Flamegraphs'],
+    constraints: [
+      'Customers couldn\'t use the software due to severe latency',
+      'Root cause was hidden in complex request handling paths',
+      'Required deep profiling without disrupting production traffic',
+    ],
+  },
+  {
+    starId: 'docker-development-container',
+    title: 'Docker Development Container for Embedded Systems',
+    category: 'Development Infrastructure',
+    tech: ['Docker', 'Embedded Linux', 'CI/CD', 'Networking'],
+    constraints: [
+      'Remote teams needed exact hardware environment replication',
+      'Manual environment setup led to inconsistencies and slow onboarding',
+      'Team skepticism toward local-first Docker approach',
+    ],
+  },
+  {
+    starId: 'finite-state-machine-framework',
+    title: 'Event-Driven FSM Framework',
+    category: 'Embedded Systems',
+    tech: ['C++', 'FreeRTOS', 'IoT', 'State Machines'],
+    constraints: [
+      'Existing C-based approach wasn\'t memory-safe enough for industrial IoT',
+      'Framework needed to be generic enough for customer to adapt to any system',
+      'Required modern C++ features — templates, RAII, smart pointers',
+    ],
+  },
+  {
+    starId: 'nfc-e-ink-label-app',
+    title: 'NFC E-Ink Label Application',
+    category: 'Mobile & Hardware',
+    tech: ['Expo', 'NFC', 'Android', 'ISO 14443-4', 'APDU'],
+    constraints: [
+      'Proprietary e-ink display protocol with unknown image format',
+      'No documentation available — had to reverse engineer the format',
+      'Part of R&D project with tight exploration timeline',
+    ],
+  },
+  {
+    starId: 'kintree-crdt-architecture',
+    title: 'Kintree CRDT Architecture',
+    category: 'Systems Architecture',
+    tech: ['Elixir', 'Phoenix', 'LiveView', 'CRDT', 'PostgreSQL', 'Rust'],
+    constraints: [
+      'Edit locking would create friction for concurrent users',
+      'Required efficient full-text search alongside CRDT editing state',
+      'Needed real-time sync with sub-second convergence across sessions',
+    ],
+  },
+  {
+    starId: 'astro-website-accessibility',
+    title: 'Divergent Tabletop Community Website',
+    category: 'Web Development',
+    tech: ['Astro', 'WCAG', 'Web Accessibility', 'Lighthouse'],
+    constraints: [
+      'Community includes sensitive content requiring trigger warnings',
+      'Needed WCAG compliance with full keyboard navigation',
+      'Had to handle edge cases like invisible Unicode characters in content',
+    ],
+  },
+];
+
+// Build case studies from STAR data
+const caseStudies: CaseStudy[] = featuredMappings.map((mapping) => {
+  const story = starStories.find((s: StarStory) => s.id === mapping.starId);
+
+  if (!story) {
+    console.warn(`STAR story not found: ${mapping.starId}`);
+    return {
+      id: mapping.starId,
+      title: mapping.title,
+      category: mapping.category,
+      problem: 'Story data not found.',
+      constraints: mapping.constraints,
+      solution: '',
+      outcome: [],
+      tech: mapping.tech,
+    };
+  }
+
+  // Build outcome items from result and metrics
+  const outcome: string[] = [story.result];
+  if (story.metrics) {
+    story.metrics.forEach((m) => outcome.push(m));
+  }
+
+  // Combine action into a problem statement
+  const problem = `${story.situation} ${story.task}`;
+
+  // Combine action + context into solution
+  const solution = story.action;
+
+  return {
+    id: mapping.starId,
+    title: mapping.title,
+    category: mapping.category,
+    problem,
+    constraints: mapping.constraints,
+    solution,
+    outcome,
+    tech: mapping.tech,
+  };
+});
+---
+
+<Layout metadata={metadata}>
+  <!-- Header -->
+  <section class="relative py-20 px-4 sm:px-6 lg:px-8 border-b border-border/[0.06]">
+    <ScrollReveal direction="up" delay={0} duration={0.6}>
+      <div class="max-w-4xl mx-auto text-center">
+        <span
+          class="inline-block px-4 py-2 bg-primary/[0.08] text-primary text-xs font-mono font-semibold tracking-wider rounded-sm mb-6"
+        >
+          CASE STUDIES
+        </span>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-text-heading mb-6">Selected Work</h1>
+        <p class="text-lg text-text-muted max-w-2xl mx-auto leading-relaxed">
+          Engineering projects showcasing systems performance, embedded systems, and web development.
+        </p>
+      </div>
+    </ScrollReveal>
+  </section>
+
+  <!-- Case Studies Grid -->
+  <section class="relative py-16 px-4 sm:px-6 lg:px-8">
+    <ScrollReveal direction="up" delay={0.1} duration={0.6}>
+      <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {
+            caseStudies.map((study, index) => (
+              <ScrollReveal direction="up" delay={0.15 + index * 0.1} duration={0.6}>
+                <a
+                  href={`#study-${study.id}`}
+                  class="group flex flex-col h-full p-6 bg-bg-element border border-border/[0.06] rounded-sm hover:border-primary/40 transition-all duration-300 hover:shadow-lg hover:shadow-primary/[0.08]"
+                >
+                  <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-mono font-semibold text-primary uppercase tracking-wider">
+                      {study.category}
+                    </span>
+                  </div>
+
+                  <h2 class="text-lg font-heading font-semibold text-text-heading mb-3 group-hover:text-primary transition-colors break-words">
+                    {study.title}
+                  </h2>
+
+                  <p class="text-text-muted text-sm mb-4 line-clamp-3 leading-relaxed">{study.problem}</p>
+
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    {study.tech.slice(0, 3).map((t) => (
+                      <span class="px-2 py-1 bg-bg-page text-xs text-text-muted/80 font-mono rounded">{t}</span>
+                    ))}
+                  </div>
+
+                  <div class="flex items-center text-primary text-sm font-semibold mt-auto group-hover:translate-x-1 transition-transform">
+                    View Case Study
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </div>
+                </a>
+              </ScrollReveal>
+            ))
+          }
+        </div>
+      </div>
+    </ScrollReveal>
+  </section>
+
+  {/* Detailed Case Studies */}
+  {
+    caseStudies.map((study) => (
+      <section
+        id={`study-${study.id}`}
+        class="relative py-20 px-4 sm:px-6 lg:px-8 border-t border-border/[0.06] scroll-mt-20"
+      >
+        <ScrollReveal direction="up" delay={0.2} duration={0.6}>
+          <div class="max-w-4xl mx-auto">
+            {/* Study Header */}
+            <ScrollReveal direction="up" delay={0.25} duration={0.6}>
+              <div class="mb-12">
+                <span class="inline-block px-4 py-2 bg-primary/[0.08] text-primary text-xs font-mono font-semibold tracking-wider rounded-sm mb-6">
+                  {study.category}
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-text-heading mb-4">{study.title}</h2>
+                <div class="flex flex-wrap gap-2">
+                  {study.tech.map((t) => (
+                    <span class="px-3 py-1.5 bg-bg-element border border-border/[0.08] text-sm text-text-muted font-mono rounded">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Problem */}
+            <ScrollReveal direction="up" delay={0.3} duration={0.6}>
+              <div class="mb-12">
+                <h3 class="text-2xl font-heading font-semibold text-text-heading mb-4 flex items-center">
+                  <span class="w-8 h-8 text-primary rounded-sm flex items-center justify-center mr-3 text-lg font-mono">
+                    !
+                  </span>
+                  Problem
+                </h3>
+                <p class="text-text-muted text-lg leading-relaxed pl-11">{study.problem}</p>
+              </div>
+            </ScrollReveal>
+
+            {/* Constraints */}
+            {'constraints' in study && study.constraints && (
+              <ScrollReveal direction="up" delay={0.35} duration={0.6}>
+                <div class="mb-12">
+                  <h3 class="text-2xl font-heading font-semibold text-text-heading mb-4 flex items-center">
+                    <span class="w-8 h-8 text-primary rounded-sm flex items-center justify-center mr-3 text-lg font-mono">
+                      {'</>'}
+                    </span>
+                    Constraints
+                  </h3>
+                  <ul class="space-y-3 pl-11">
+                    {study.constraints.map((constraint) => (
+                      <li class="flex items-start text-text-muted text-lg leading-relaxed gap-3">
+                        <span class="text-primary shrink-0">•</span>
+                        <span>{constraint}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </ScrollReveal>
+            )}
+
+            {/* Solution */}
+            <ScrollReveal direction="up" delay={0.4} duration={0.6}>
+              <div class="mb-12">
+                <h3 class="text-2xl font-heading font-semibold text-text-heading mb-4 flex items-center">
+                  <span class="w-8 h-8 text-primary rounded-sm flex items-center justify-center mr-3 text-lg font-mono">
+                    $
+                  </span>
+                  Solution
+                </h3>
+                <p class="text-text-muted text-lg leading-relaxed pl-11">{study.solution}</p>
+              </div>
+            </ScrollReveal>
+
+            {/* Outcome */}
+            {'outcome' in study && study.outcome && (
+              <ScrollReveal direction="up" delay={0.45} duration={0.6}>
+                <div>
+                  <h3 class="text-2xl font-heading font-semibold text-text-heading mb-4 flex items-center">
+                    <span class="w-8 h-8 text-primary rounded-sm flex items-center justify-center mr-3 text-lg font-mono">
+                      ✓
+                    </span>
+                    Outcome
+                  </h3>
+                  <ul class="space-y-3 pl-11">
+                    {study.outcome.map((result) => (
+                      <li class="flex items-start text-text-muted text-lg leading-relaxed gap-3">
+                        <span class="text-primary shrink-0">•</span>
+                        <span>{result}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </ScrollReveal>
+            )}
+
+            {/* Back to Top */}
+            <ScrollReveal direction="up" delay={0.5} duration={0.6}>
+              <div class="mt-12 pt-8 border-t border-border/[0.06]">
+                <InteractiveElement tag="a" href="#" hoverScale={1.05} activeScale={0.98}>
+                  <span class="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-semibold text-sm">
+                    <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                    </svg>
+                    Back to Case Studies
+                  </span>
+                </InteractiveElement>
+              </div>
+            </ScrollReveal>
+          </div>
+        </ScrollReveal>
+      </section>
+    ))
+  }
+</Layout>
+
+<style>
+  /* Smooth scroll for anchor links */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

@@ -1,0 +1,25 @@
+# Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Terraform lock file (optional, can commit if desired)
+.terraform.lock.hcl
+
+# Terraform provider binaries
+.terraform/
+
+# Terraform plan files
+*.plan
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Local variables with sensitive data (not committed)
+*.tfvars.local
+terraform.tfvars.local
+
+# Environment files with sensitive data
+.env
+.env.local

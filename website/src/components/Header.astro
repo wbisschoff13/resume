@@ -1,0 +1,256 @@
+---
+/**
+ * Header Component
+ *
+ * Sticky header with navigation links.
+ * Mobile-responsive with hamburger menu (< 1024px).
+ * Clean, technical aesthetic matching Minimalist Technical Dark theme.
+ */
+
+import { headerData } from '~/navigation';
+import { getCollection } from 'astro:content';
+import Logo from '~/components/Logo.astro';
+
+const currentPath = Astro.url.pathname;
+
+const isActive = (href: string) => {
+  // Exact match for home, startsWith for others
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
+
+// Get published blog posts to determine if Notes link should be shown
+const allPosts = await getCollection('post');
+const publishedPosts = allPosts.filter((post) => post.data.draft !== true);
+const showNotesLink = publishedPosts.length > 0;
+
+// Filter navigation links to exclude Notes if no published posts
+const navLinks = headerData.links.filter((link) => {
+  if (link.text === 'Notes') {
+    return showNotesLink;
+  }
+  return true;
+});
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" data-header>
+  <div class="absolute inset-0 bg-page/90 backdrop-blur-xl border-b border-border/[0.06]"></div>
+
+  <nav class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo/Brand -->
+      <Logo />
+
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center gap-1">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class={
+                `px-4 py-2 rounded-sm text-sm font-medium transition-all duration-200 font-mono tracking-wide ` +
+                (isActive(link.href)
+                  ? 'text-primary bg-primary/[0.08]'
+                  : 'text-text-default hover:text-primary hover:bg-primary/[0.04]')
+              }
+              aria-current={isActive(link.href) ? 'page' : undefined}
+            >
+              {link.text}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Actions: Mobile Menu Button -->
+      <div class="flex items-center">
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-button"
+          type="button"
+          class="lg:hidden p-2 rounded-sm text-text-muted hover:text-primary hover:bg-primary/[0.08] transition-all duration-200"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          aria-label="Toggle navigation menu"
+        >
+          <svg class="w-6 h-6 menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg class="w-6 h-6 close-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-menu" class="lg:hidden hidden pb-4" aria-label="Mobile navigation">
+      <div class="flex flex-col gap-1 pt-2 border-t border-border/[0.06]">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class={
+                `px-4 py-3 rounded-sm text-sm font-medium transition-all duration-200 font-mono tracking-wide ` +
+                (isActive(link.href)
+                  ? 'text-primary bg-primary/[0.08]'
+                  : 'text-text-default hover:text-primary hover:bg-primary/[0.04]')
+              }
+              aria-current={isActive(link.href) ? 'page' : undefined}
+            >
+              {link.text}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Spacer for fixed header -->
+<div class="h-16" aria-hidden="true"></div>
+
+<style>
+  /* Add scroll-based shadow effect */
+  [data-header] {
+    background: transparent;
+  }
+
+  header[data-header].scrolled {
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Mobile menu transitions */
+  #mobile-menu {
+    transition: all 0.2s ease-in-out;
+  }
+
+  #mobile-menu[aria-hidden='true'] {
+    display: none;
+  }
+
+  #mobile-menu[aria-hidden='false'] {
+    display: block;
+  }
+
+  /* Hide close icon when menu is closed */
+  .menu-icon,
+  .close-icon {
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  #mobile-menu-button[aria-expanded='true'] .menu-icon {
+    display: none;
+  }
+
+  #mobile-menu-button[aria-expanded='true'] .close-icon {
+    display: block;
+  }
+
+  #mobile-menu-button[aria-expanded='false'] .menu-icon {
+    display: block;
+  }
+
+  #mobile-menu-button[aria-expanded='false'] .close-icon {
+    display: none;
+  }
+</style>
+
+<script>
+  // Track initialization state to prevent duplicate listeners
+  let isMobileMenuInitialized = false;
+
+  // Mobile menu initialization function
+  function initMobileMenu() {
+    // Prevent duplicate initialization
+    if (isMobileMenuInitialized) return;
+
+    const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (!menuButton || !mobileMenu) return;
+
+    // Mark as initialized
+    isMobileMenuInitialized = true;
+
+    // Ensure menu starts closed
+    menuButton.setAttribute('aria-expanded', 'false');
+    mobileMenu.classList.add('hidden');
+
+    // Function to close menu
+    function closeMenu() {
+      if (!menuButton || !mobileMenu) return;
+      menuButton.setAttribute('aria-expanded', 'false');
+      mobileMenu.classList.add('hidden');
+    }
+
+    // Function to open menu
+    function openMenu() {
+      if (!menuButton || !mobileMenu) return;
+      menuButton.setAttribute('aria-expanded', 'true');
+      mobileMenu.classList.remove('hidden');
+    }
+
+    menuButton.addEventListener('click', () => {
+      const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+
+      if (isExpanded) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    // Close mobile menu when clicking a link
+    const menuLinks = mobileMenu.querySelectorAll('a');
+    menuLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    // Close mobile menu on escape key
+    const escapeHandler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+          closeMenu();
+          menuButton.focus();
+        }
+      }
+    };
+    document.removeEventListener('keydown', escapeHandler);
+    document.addEventListener('keydown', escapeHandler);
+  }
+
+  // Initialize on page load
+  initMobileMenu();
+
+  // Re-initialize after Astro view transitions
+  document.addEventListener('astro:after-swap', () => {
+    isMobileMenuInitialized = false;
+    initMobileMenu();
+  });
+
+  // Add scrolled class to header on scroll
+  const header = document.querySelector('[data-header]');
+  if (header) {
+    window.addEventListener(
+      'scroll',
+      () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll > 10) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      },
+      { passive: true }
+    );
+  }
+</script>

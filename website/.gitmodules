@@ -1,0 +1,3 @@
+[submodule "src/data/resume-data"]
+	path = src/data/resume-data
+	url = git@github.com:wbisschoff13/resume-data.git

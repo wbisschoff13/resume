@@ -1,0 +1,6 @@
+# Redirect root domain to subdomain
+# https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Redirect all traffic from bisschoff.dev to werner.bisschoff.dev
+https://bisschoff.dev/* https://werner.bisschoff.dev/:splat 301!
+http://bisschoff.dev/* https://werner.bisschoff.dev/:splat 301!

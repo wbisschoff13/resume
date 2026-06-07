@@ -1,0 +1,52 @@
+# build output
+dist/
+.output/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+pnpm-lock.yaml
+
+.astro
+
+# Logs
+logs
+*.log
+dev-debug.log
+# Dependency directories
+# Environment variables
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# OS specific
+
+# Task files
+# tasks.json
+# tasks/
+
+# Task-Master CLI state (keep tasks.json)
+.taskmaster/
+!.taskmaster/tasks/
+!.taskmaster/tasks/tasks.json 
+
+# Adobe Illustrator lock files
+*.af~lock~

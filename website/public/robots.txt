@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://werner.bisschoff.dev/sitemap-index.xml
+Sitemap: https://werner.bisschoff.dev/llms.txt

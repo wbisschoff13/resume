@@ -1,0 +1,109 @@
+---
+/**
+ * InteractiveElement - Micro-interaction Component
+ *
+ * Provides hover, tap, and focus animations for interactive elements.
+ * Subtle, professional animations matching "engineering ingenuity" aesthetic.
+ *
+ * PRD Reference: FR-009, FR-010, FR-011
+ * Task Reference: TM-015
+ */
+
+export interface Props {
+  hover?: boolean;
+  active?: boolean;
+  hoverScale?: number;
+  activeScale?: number;
+  class?: string;
+  tag?: 'div' | 'button' | 'a';
+  href?: string;
+  type?: string;
+}
+
+const {
+  hover = true,
+  active = true,
+  hoverScale = 1.02,
+  activeScale = 0.98,
+  class: className = '',
+  tag = 'div',
+  href,
+  type,
+} = Astro.props;
+
+const Tag = tag;
+const attrs = href ? { href } : type === 'button' ? { type } : {};
+// Type assertion: attrs are guaranteed to match Tag by construction
+const safeAttrs = attrs as Record<string, string | undefined>;
+---
+
+<Tag
+  class:list={['interactive-element', className]}
+  data-hover={String(hover)}
+  data-active={String(active)}
+  data-hover-scale={String(hoverScale)}
+  data-active-scale={String(activeScale)}
+  {...safeAttrs}
+>
+  <slot />
+</Tag>
+
+<script>
+  import { shouldAnimate } from '~/utils/a11y';
+
+  document.querySelectorAll('.interactive-element').forEach((element) => {
+    if (!(element instanceof HTMLElement)) return;
+    if (!shouldAnimate()) return;
+
+    const hoverEnabled = element.dataset.hover === 'true';
+    const activeEnabled = element.dataset.active === 'true';
+    const hScale = parseFloat(element.dataset.hoverScale || '1.02');
+    const aScale = parseFloat(element.dataset.activeScale || '0.98');
+    const duration = 200;
+    const easing = 'cubic-bezier(0.4, 0, 0.2, 1)';
+
+    if (hoverEnabled) {
+      element.addEventListener('mouseenter', () => {
+        element.animate({ transform: [`scale(1)`, `scale(${hScale})`] }, { duration, easing, fill: 'forwards' });
+      });
+      element.addEventListener('mouseleave', () => {
+        element.animate(
+          { transform: [`scale(${hScale})`, `scale(1)`] },
+          { duration: duration * 1.5, easing, fill: 'forwards' }
+        );
+      });
+    }
+
+    if (activeEnabled) {
+      element.addEventListener('mousedown', () => {
+        element.animate(
+          { transform: [`scale(${hScale || 1})`, `scale(${aScale})`] },
+          { duration: duration / 2, easing: 'ease-out', fill: 'forwards' }
+        );
+      });
+      element.addEventListener('mouseup', () => {
+        element.animate(
+          { transform: [`scale(${aScale})`, `scale(${hScale || 1})`] },
+          { duration, easing, fill: 'forwards' }
+        );
+      });
+    }
+  });
+</script>
+
+<style>
+  .interactive-element {
+    display: inline-block;
+    cursor: pointer;
+    transition: outline-color 0.2s ease;
+  }
+  .interactive-element:focus-visible {
+    outline: 2px solid var(--color-primary-teal, #599692);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .interactive-element {
+      /* No animations when motion is reduced */
+    }
+  }
+</style>
