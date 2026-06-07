@@ -15,13 +15,13 @@ jobs:
       matrix:
         entry:
           - source: cv.typ
-            output: cv.pdf
+            output: W_Bisschoff_CV.pdf
           - source: cv_embedded.typ
-            output: cv_embedded.pdf
+            output: W_Bisschoff_CV_embedded.pdf
           - source: cv_enterprise.typ
-            output: cv_enterprise.pdf
+            output: W_Bisschoff_CV_enterprise.pdf
           - source: cover_letter.typ
-            output: cover_letter.pdf
+            output: W_Bisschoff_Cover_Letter.pdf
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
         uses: typst-community/setup-typst@v5
 
       - name: Build ${{ matrix.entry.output }}
-        run: typst compile ${{ matrix.entry.source }}
+        run: typst compile ${{ matrix.entry.source }} ${{ matrix.entry.output }}
 
       - name: Upload ${{ matrix.entry.output }}
         uses: actions/upload-artifact@v4
@@ -75,10 +75,10 @@ jobs:
             **Built from commit:** ${{ github.sha }}
 
             This release includes:
-            - **Standard CV** - The full professional CV
-            - **Embedded CV** - Tailored for embedded
-            - **Enterprise CV** - Tailored for enterprise
-            - **Cover Letter** - Professional cover letter
+            - **W_Bisschoff_CV.pdf** - The full professional CV
+            - **W_Bisschoff_CV_embedded.pdf** - Tailored for embedded
+            - **W_Bisschoff_CV_enterprise.pdf** - Tailored for enterprise
+            - **W_Bisschoff_Cover_Letter.pdf** - Professional cover letter
           draft: false
           prerelease: false
         env:

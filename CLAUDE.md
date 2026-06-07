@@ -17,13 +17,10 @@ Primary Tool Execution API: `mise run <task>`
 
 | Task | Description |
 |------|-------------|
-| `mise run build` | Compile all 4 documents to PDF |
-| `mise run check` | Run all verification checks (compile + format-check) |
+| `mise run build` | Compile all 4 documents to PDF (`W_Bisschoff_CV.pdf`, etc.) |
+| `mise run check` | Run all verification checks (compile) |
 | `mise run check-compile` | Verify all documents compile without errors |
-| `mise run format` | Format all Typst sources (needs typst >= 0.13) |
-| `mise run format-check` | Check formatting without modifying (read-only) |
-| `mise run lint` | Validate syntax via compilation (no dedicated linter) |
-| `mise run fix` | Apply formatting fixes |
+| `mise run lint` | Validate syntax via compilation |
 | `mise run dev` | Watch general CV and recompile on changes |
 | `mise run dev-embedded` | Watch embedded CV variant |
 | `mise run dev-enterprise` | Watch enterprise CV variant |

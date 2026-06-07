@@ -33,7 +33,10 @@ thoughts/
 .typst/
 
 # Generated PDF artifacts (root-level only)
-cv.pdf
-cv_embedded.pdf
-cv_enterprise.pdf
-cover_letter.pdf
+W_Bisschoff_CV.pdf
+W_Bisschoff_CV_embedded.pdf
+W_Bisschoff_CV_enterprise.pdf
+W_Bisschoff_Cover_Letter.pdf
+
+# Git worktrees
+.worktrees/

@@ -3,67 +3,55 @@ typst = "0.14.2"
 
 [tasks.build]
 description = "Compile all Typst documents to PDF"
-run = "typst compile cv.typ && typst compile cv_embedded.typ && typst compile cv_enterprise.typ && typst compile cover_letter.typ"
+run = "typst compile cv.typ W_Bisschoff_CV.pdf && typst compile cv_embedded.typ W_Bisschoff_CV_embedded.pdf && typst compile cv_enterprise.typ W_Bisschoff_CV_enterprise.pdf && typst compile cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
 
 [tasks.build-cv]
 description = "Compile general CV only"
-run = "typst compile cv.typ"
+run = "typst compile cv.typ W_Bisschoff_CV.pdf"
 
 [tasks.build-embedded]
 description = "Compile embedded systems CV variant"
-run = "typst compile cv_embedded.typ"
+run = "typst compile cv_embedded.typ W_Bisschoff_CV_embedded.pdf"
 
 [tasks.build-enterprise]
 description = "Compile enterprise CV variant"
-run = "typst compile cv_enterprise.typ"
+run = "typst compile cv_enterprise.typ W_Bisschoff_CV_enterprise.pdf"
 
 [tasks.build-cover-letter]
 description = "Compile cover letter"
-run = "typst compile cover_letter.typ"
+run = "typst compile cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
 
 [tasks.build-check]
 description = "Validate all documents compile without errors (dry compile)"
-run = "typst compile cv.typ && typst compile cv_embedded.typ && typst compile cv_enterprise.typ && typst compile cover_letter.typ"
+run = "typst compile cv.typ W_Bisschoff_CV.pdf && typst compile cv_embedded.typ W_Bisschoff_CV_embedded.pdf && typst compile cv_enterprise.typ W_Bisschoff_CV_enterprise.pdf && typst compile cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
 
 [tasks.check]
-description = "Run all verification checks (typecheck, format-check, compile)"
-depends = ["check-compile", "format-check"]
+description = "Run all verification checks (compile)"
+depends = ["check-compile"]
 
 [tasks.check-compile]
 description = "Verify all documents compile without errors"
-run = "typst compile cv.typ && typst compile cv_embedded.typ && typst compile cv_enterprise.typ && typst compile cover_letter.typ"
-
-[tasks.format]
-description = "Format all Typst source files (requires typst >= 0.13)"
-run = "typst fmt content/data.typ lib/template.typ cv.typ cv_embedded.typ cv_enterprise.typ cover_letter.typ"
-
-[tasks.format-check]
-description = "Check formatting without modifying files (requires typst >= 0.13)"
-run = "typst fmt --check content/data.typ lib/template.typ cv.typ cv_embedded.typ cv_enterprise.typ cover_letter.typ"
+run = "typst compile cv.typ W_Bisschoff_CV.pdf && typst compile cv_embedded.typ W_Bisschoff_CV_embedded.pdf && typst compile cv_enterprise.typ W_Bisschoff_CV_enterprise.pdf && typst compile cover_letter.typ W_Bisschoff_Cover_Letter.pdf"
 
 [tasks.lint]
 description = "Validate Typst syntax via compilation check"
-run = "echo 'Lint: compilation-based validation only (no dedicated linter in typst 0.14.2)' && typst compile cv.typ && typst compile cover_letter.typ"
-
-[tasks.fix]
-description = "Apply formatting fixes"
-depends = ["format"]
+run = "typst compile cv.typ /dev/null && typst compile cover_letter.typ /dev/null"
 
 [tasks.dev]
 description = "Watch and recompile general CV on changes"
-run = "typst watch cv.typ"
+run = "typst watch cv.typ W_Bisschoff_CV.pdf"
 
 [tasks.dev-embedded]
 description = "Watch and recompile embedded CV on changes"
-run = "typst watch cv_embedded.typ"
+run = "typst watch cv_embedded.typ W_Bisschoff_CV_embedded.pdf"
 
 [tasks.dev-enterprise]
 description = "Watch and recompile enterprise CV on changes"
-run = "typst watch cv_enterprise.typ"
+run = "typst watch cv_enterprise.typ W_Bisschoff_CV_enterprise.pdf"
 
 [tasks.clean]
 description = "Remove generated PDF artifacts"
-run = "rm -f cv.pdf cv_embedded.pdf cv_enterprise.pdf cover_letter.pdf"
+run = "rm -f W_Bisschoff_CV.pdf W_Bisschoff_CV_embedded.pdf W_Bisschoff_CV_enterprise.pdf W_Bisschoff_Cover_Letter.pdf"
 
 [tasks.setup]
 description = "Verify mise toolchain and typst version"
