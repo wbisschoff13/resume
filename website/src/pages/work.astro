@@ -12,7 +12,7 @@ const metadata = {
 };
 
 // Load canonical data from YAML
-const starStories = yaml.load(fs.readFileSync('../content/star-stories.yaml', 'utf-8'));
+const starStories = yaml.load(fs.readFileSync('../content/star-stories.yaml', 'utf-8')) as StarStory[];
 
 interface StarStory {
   id: string;
@@ -50,7 +50,7 @@ const featuredMappings: FeaturedMapping[] = [
     category: 'Systems Performance',
     tech: ['C++', 'SOME/IP', 'perf', 'Flamegraphs'],
     constraints: [
-      'Customers couldn\'t use the software due to severe latency',
+      "Customers couldn't use the software due to severe latency",
       'Root cause was hidden in complex request handling paths',
       'Required deep profiling without disrupting production traffic',
     ],
@@ -72,7 +72,7 @@ const featuredMappings: FeaturedMapping[] = [
     category: 'Embedded Systems',
     tech: ['C++', 'FreeRTOS', 'IoT', 'State Machines'],
     constraints: [
-      'Existing C-based approach wasn\'t memory-safe enough for industrial IoT',
+      "Existing C-based approach wasn't memory-safe enough for industrial IoT",
       'Framework needed to be generic enough for customer to adapt to any system',
       'Required modern C++ features — templates, RAII, smart pointers',
     ],
@@ -144,7 +144,7 @@ const caseStudies: CaseStudy[] = featuredMappings.map((mapping) => {
   // Build outcome items from result and metrics
   const outcome: string[] = [story.result];
   if (story.metrics) {
-    story.metrics.forEach((m) => outcome.push(m));
+    story.metrics.forEach((m: string) => outcome.push(m));
   }
 
   // Combine action into a problem statement

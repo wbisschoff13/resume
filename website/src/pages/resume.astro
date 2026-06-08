@@ -10,8 +10,15 @@ const metadata = {
     'Professional resume showcasing experience in systems architecture, testing infrastructure, and development tooling. Open to freelance, contract, part-time, full-time, and remote work in Cape Town.',
 };
 
+interface Config {
+  name: string;
+  title: Record<string, string>;
+  contact: Record<string, string>;
+  summary: Record<string, string>;
+}
+
 // Load canonical YAML data
-const config = yaml.load(fs.readFileSync('../content/config.yaml', 'utf-8'));
+const config = yaml.load(fs.readFileSync('../content/config.yaml', 'utf-8')) as Config;
 const experiences = yaml.load(fs.readFileSync('../content/experience.yaml', 'utf-8'));
 const skillsData = yaml.load(fs.readFileSync('../content/skills.yaml', 'utf-8'));
 const educationData = yaml.load(fs.readFileSync('../content/education.yaml', 'utf-8'));
@@ -55,12 +62,13 @@ const websiteExperiences = (experiences as ExperienceEntry[]).map((exp) => {
     .sort((a, b) => a.cv_priority - b.cv_priority);
 
   // Fallback: show all website_show bullets if no general variant
-  const description = bullets.length > 0
-    ? bullets.map((b) => b.text)
-    : exp.bullets
-      .filter((b) => b.website_show !== false)
-      .sort((a, b) => a.cv_priority - b.cv_priority)
-      .map((b) => b.text);
+  const description =
+    bullets.length > 0
+      ? bullets.map((b) => b.text)
+      : exp.bullets
+          .filter((b) => b.website_show !== false)
+          .sort((a, b) => a.cv_priority - b.cv_priority)
+          .map((b) => b.text);
 
   return { title, company: exp.company, period, description };
 });
@@ -102,7 +110,7 @@ const titleText = config?.title?.general || 'Software Engineer';
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
+              ></path>
             </svg>
             Download PDF
           </a>
