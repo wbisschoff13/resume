@@ -24,7 +24,7 @@ subdomain_name = "werner"
 # -----------------------------------------------------------------------------
 
 repo_owner        = "wbisschoff13"
-repo_name         = "website"
+repo_name         = "resume"
 production_branch = "main"
 
 # -----------------------------------------------------------------------------

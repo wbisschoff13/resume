@@ -25,7 +25,7 @@ resource "cloudflare_pages_project" "website" {
   build_config {
     build_command   = var.build_command
     destination_dir = var.destination_dir
-    root_dir        = "/"
+    root_dir        = "website"
     build_caching   = true
   }
 

@@ -50,7 +50,7 @@ variable "repo_owner" {
 variable "repo_name" {
   description = "GitHub repository name"
   type        = string
-  default     = "website"
+  default     = "resume"
 }
 
 variable "production_branch" {
