@@ -28,21 +28,8 @@ export const getPersonSchema = (): object => {
       CONTACT_INFO.social.linkedin.url,
       ...(CONTACT_INFO.social.twitter ? [CONTACT_INFO.social.twitter.url] : []),
     ],
-    knowsAbout: [
-      'Embedded Systems',
-      'System Architecture',
-      'Spec-Driven Development',
-      'AI Agentic Workflows',
-      'Performance Optimization',
-    ],
-    seeks: {
-      '@type': 'Demand',
-      itemOffered: {
-        '@type': 'Service',
-        name: 'Software Engineering Contract',
-        description: 'Freelance software engineer available for contract work, consulting, and part-time engagements.',
-      },
-    },
+    knowsAbout: CONTACT_INFO.expertise,
+    seeks: CONTACT_INFO.availability,
   };
 };
 
